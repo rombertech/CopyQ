@@ -39,11 +39,12 @@ jobs:
       - name: Install Qt 6 via aqt
         run: |
           pip3 install aqtinstall
-          # 去掉 qtbase，只列扩展模块
-          aqt install-qt linux desktop 6.5.3 gcc_64 -m qtsvg qtdeclarative qttools
-          echo "$GITHUB_WORKSPACE/6.5.3/gcc_64/bin" >> $GITHUB_PATH
-          echo "QT_PLUGIN_PATH=$GITHUB_WORKSPACE/6.5.3/gcc_64/plugins" >> $GITHUB_ENV
-          echo "LD_LIBRARY_PATH=$GITHUB_WORKSPACE/6.5.3/gcc_64/lib" >> $GITHUB_ENV        
+          # 换成 6.4.3 LTS 版本，模块更全更稳定
+          aqt install-qt linux desktop 6.4.3 gcc_64 -m qtsvg qtdeclarative qttools
+          
+          echo "$GITHUB_WORKSPACE/6.4.3/gcc_64/bin" >> $GITHUB_PATH
+          echo "QT_PLUGIN_PATH=$GITHUB_WORKSPACE/6.4.3/gcc_64/plugins" >> $GITHUB_ENV
+          echo "LD_LIBRARY_PATH=$GITHUB_WORKSPACE/6.4.3/gcc_64/lib" >> $GITHUB_ENV        
 
       - name: Build QCA and QtKeychain
         run: |
