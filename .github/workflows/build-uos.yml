@@ -17,19 +17,24 @@ jobs:
 
       - name: Setup Build Environment
         run: |
-          # 换源
+         # 1. 换源
           sed -i 's|deb.debian.org|archive.debian.org|g' /etc/apt/sources.list
           sed -i 's|security.debian.org|archive.debian.org|g' /etc/apt/sources.list
           sed -i '/stretch-updates/d' /etc/apt/sources.list
           
+          # 2. 更新
           apt-get update
+          
+          # 3. 安装依赖 (注意：必须包含 python3-dev)
           apt-get install -y --no-install-recommends \
             build-essential cmake ninja-build ccache git wget ca-certificates \
             libxfixes-dev libxtst-dev extra-cmake-modules \
             libwayland-dev libegl1-mesa-dev libgl-dev libxkbcommon-dev \
-            libssl-dev pkg-config libfuse2 python3 python3-pip python3-setuptools python3-wheel python3-dev
+            libssl-dev pkg-config libfuse2 \
+            python3 python3-pip python3-setuptools python3-wheel python3-dev
             
-          pip3 install --upgrade pip setuptools
+          # 4. 升级工具链
+          python3 -m pip install --upgrade pip setuptools
 
       - name: Install Qt 6 via aqt
         run: |
