@@ -35,7 +35,9 @@ class Tabs;
 class Theme;
 class TrayMenu;
 class ToolBar;
+class HiddenMenuBar;
 class QModelIndex;
+class QSizeGrip;
 struct NotificationButton;
 
 Q_DECLARE_METATYPE(QPersistentModelIndex)
@@ -89,6 +91,7 @@ struct MainWindowOptions {
     int transparencyFocused = 0;
 
     bool hideTabs = false;
+    bool hideMenuBar = false;
 
     bool hideMainWindow = false;
     bool closeOnUnfocus = false;
@@ -254,7 +257,7 @@ public:
 
     /// Used by config() command.
     QVariant config(const QVariantList &nameValue);
-    QString configDescription();
+    QString configDescription() const;
 
     QVariantMap actionData(int id) const;
     void setActionData(int id, const QVariantMap &data);
@@ -317,6 +320,9 @@ public:
 
     /** Open preferences dialog. */
     void openPreferences();
+
+    /** Show the menu bar (also when hidden by the option) and activate its first menu. */
+    void showMenuBar();
 
     /** Open commands dialog. */
     void openCommands();
@@ -457,6 +463,9 @@ protected:
     void keyReleaseEvent(QKeyEvent *event) override;
     bool event(QEvent *event) override;
 
+    /** Move frameless window by dragging its empty area. */
+    void mousePressEvent(QMouseEvent *event) override;
+
     /** Hide (minimize to tray) window on close. */
     void closeEvent(QCloseEvent *event) override;
 
@@ -478,6 +487,8 @@ private:
     void saveTabPositions();
     void onSaveTabPositionsTimer();
     void doSaveTabPositions(AppConfig *appConfig);
+    void updateSizeGrip(bool frameless);
+    void placeSizeGrip();
     void tabsMoved(const QString &oldPrefix, const QString &newPrefix);
     void tabBarMenuRequested(QPoint pos, int tab);
     void tabTreeMenuRequested(QPoint pos, const QString &groupPath);
@@ -646,7 +657,7 @@ private:
     bool exportDataFrom(const QString &fileName, const QStringList &tabs, bool exportConfiguration, bool exportCommands, const Encryption::EncryptionKey &encryptionKey);
     bool exportDataV4(QDataStream *out, const QStringList &tabs, bool exportConfiguration, bool exportCommands);
     bool exportDataV5(QDataStream *out, const QStringList &tabs, bool exportConfiguration, bool exportCommands, const Encryption::EncryptionKey &encryptionKey);
-    QVariantMap exportTabData(const QString &tab, bool *ok);
+    QVariantMap exportTabData(const QString &tab, const Tabs &tabProps, bool *ok);
 
     bool canImport(const ImportSelection &importSelection);
     void importSelected(const ImportSelection &importSelection);
@@ -695,6 +706,10 @@ private:
     SystemTrayIcon *m_tray;
 
     ToolBar *m_toolBar;
+
+    QSizeGrip *m_sizeGrip = nullptr;
+    HiddenMenuBar *m_hiddenMenuBar = nullptr;
+    QList<QAction*> m_menuBarStandIns;
 
     MainWindowOptions m_options;
 

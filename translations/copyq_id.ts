@@ -9,27 +9,27 @@
         <translation>Tentang</translation>
     </message>
     <message>
-        <location filename="../src/gui/aboutdialog.cpp" line="87"/>
+        <location filename="../src/gui/aboutdialog.cpp" line="114"/>
         <source>Clipboard Manager</source>
         <translation>Pengelola Clipboard</translation>
     </message>
     <message>
-        <location filename="../src/gui/aboutdialog.cpp" line="94"/>
+        <location filename="../src/gui/aboutdialog.cpp" line="121"/>
         <source>Author</source>
         <translation>Penulis</translation>
     </message>
     <message>
-        <location filename="../src/gui/aboutdialog.cpp" line="95"/>
+        <location filename="../src/gui/aboutdialog.cpp" line="122"/>
         <source>E-mail</source>
         <translation>Surel</translation>
     </message>
     <message>
-        <location filename="../src/gui/aboutdialog.cpp" line="96"/>
+        <location filename="../src/gui/aboutdialog.cpp" line="123"/>
         <source>Web</source>
         <translation>Web</translation>
     </message>
     <message>
-        <location filename="../src/gui/aboutdialog.cpp" line="97"/>
+        <location filename="../src/gui/aboutdialog.cpp" line="124"/>
         <source>Donate</source>
         <translation>Donasi</translation>
     </message>
@@ -97,17 +97,17 @@
 <context>
     <name>ActionHandler</name>
     <message>
-        <location filename="../src/gui/actionhandler.cpp" line="117"/>
+        <location filename="../src/gui/actionhandler.cpp" line="156"/>
         <source>Error: %1</source>
         <translation>Kesalahan: %1</translation>
     </message>
     <message>
-        <location filename="../src/gui/actionhandler.cpp" line="135"/>
+        <location filename="../src/gui/actionhandler.cpp" line="174"/>
         <source>Exit code: %1</source>
         <translation>Kode keluar: %1</translation>
     </message>
     <message>
-        <location filename="../src/gui/actionhandler.cpp" line="169"/>
+        <location filename="../src/gui/actionhandler.cpp" line="207"/>
         <source>Command %1</source>
         <translation>Perintah %1</translation>
     </message>
@@ -314,17 +314,17 @@
 <context>
     <name>ClipboardBrowser</name>
     <message>
-        <location filename="../src/gui/clipboardbrowser.cpp" line="1573"/>
+        <location filename="../src/gui/clipboardbrowser.cpp" line="1586"/>
         <source>Cannot add new items to tab %1. Please remove items manually to make space.</source>
         <translation>Tidak dapat menambahkan item baru ke tab %1. Silakan hapus item secara manual untuk membuat ruang.</translation>
     </message>
     <message>
-        <location filename="../src/gui/clipboardbrowser.cpp" line="1897"/>
+        <location filename="../src/gui/clipboardbrowser.cpp" line="1913"/>
         <source>Discard Changes?</source>
         <translation>Apakah Anda ingin membatalkan perubahan?</translation>
     </message>
     <message>
-        <location filename="../src/gui/clipboardbrowser.cpp" line="1898"/>
+        <location filename="../src/gui/clipboardbrowser.cpp" line="1914"/>
         <source>Do you really want to &lt;strong&gt;discard changes&lt;/strong&gt;?</source>
         <translation>Apakah Anda benar-benar ingin &lt;strong&gt;membatalkan perubahan&lt;/strong&gt;?</translation>
     </message>
@@ -379,27 +379,27 @@
 <context>
     <name>ClipboardServer</name>
     <message>
-        <location filename="../src/app/clipboardserver.cpp" line="130"/>
+        <location filename="../src/app/clipboardserver.cpp" line="135"/>
         <source>CopyQ server is already running.</source>
         <translation>Server CopyQ sudah berjalan.</translation>
     </message>
     <message>
-        <location filename="../src/app/clipboardserver.cpp" line="403"/>
+        <location filename="../src/app/clipboardserver.cpp" line="419"/>
         <source>Cancel Active Commands</source>
         <translation>Batalkan Perintah Aktif</translation>
     </message>
     <message>
-        <location filename="../src/app/clipboardserver.cpp" line="404"/>
+        <location filename="../src/app/clipboardserver.cpp" line="420"/>
         <source>Cancel active commands and exit?</source>
         <translation>Batalkan perintah yang aktif dan keluar?</translation>
     </message>
     <message>
-        <location filename="../src/app/clipboardserver.cpp" line="407"/>
+        <location filename="../src/app/clipboardserver.cpp" line="423"/>
         <source>Cancel Exiting</source>
         <translation>Batalkan Keluar</translation>
     </message>
     <message>
-        <location filename="../src/app/clipboardserver.cpp" line="408"/>
+        <location filename="../src/app/clipboardserver.cpp" line="424"/>
         <source>Exit Anyway</source>
         <translation>Keluar Tetap</translation>
     </message>
@@ -1373,36 +1373,56 @@ Gunakan Pratinjau Item untuk menampilkan seluruh item.</translation>
     </message>
     <message>
         <location filename="../src/ui/configtablayout.ui" line="95"/>
+        <source>Drag empty area to move the window, drag bottom right corner to resize it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/configtablayout.ui" line="98"/>
+        <source>Hide window &amp;title and frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/configtablayout.ui" line="105"/>
+        <source>Hide menu bar (Alt or the context menu shows it temporarily)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/configtablayout.ui" line="108"/>
+        <source>Hide m&amp;enu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/configtablayout.ui" line="115"/>
         <source>Hide main window when closed</source>
         <translation>Sembunyikan jendela utama saat ditutup</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="98"/>
+        <location filename="../src/ui/configtablayout.ui" line="118"/>
         <source>Hide &amp;main window</source>
         <translation>Sembunyikan jendela utama</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="108"/>
+        <location filename="../src/ui/configtablayout.ui" line="128"/>
         <source>Layout and Transparency</source>
         <translation>Tata Letak dan Transparansi</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="117"/>
+        <location filename="../src/ui/configtablayout.ui" line="137"/>
         <source>Show tree with tabs instead of tab bar</source>
         <translation>Tampilkan pohon dengan tab alih-alih bilah tab</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="120"/>
+        <location filename="../src/ui/configtablayout.ui" line="140"/>
         <source>Tab T&amp;ree</source>
         <translation>Pohon Tab</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="127"/>
+        <location filename="../src/ui/configtablayout.ui" line="147"/>
         <source>&amp;Focused transparency:</source>
         <translation>Transparansi yang terfokus:</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="139"/>
+        <location filename="../src/ui/configtablayout.ui" line="159"/>
         <source>Transparency of main window if focused.
 
 Note: This is not supported on all systems.</source>
@@ -1411,12 +1431,12 @@ Note: This is not supported on all systems.</source>
 Catatan: Fitur ini tidak didukung di semua sistem.</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="169"/>
+        <location filename="../src/ui/configtablayout.ui" line="189"/>
         <source>&amp;Unfocused transparency:</source>
         <translation>Transparansi yang tidak terfokus:</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="181"/>
+        <location filename="../src/ui/configtablayout.ui" line="201"/>
         <source>Transparency of main window if unfocused.
 
 Note: This is not supported on all systems.</source>
@@ -1425,12 +1445,12 @@ Note: This is not supported on all systems.</source>
 Catatan: Fitur ini tidak didukung di semua sistem.</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="211"/>
+        <location filename="../src/ui/configtablayout.ui" line="231"/>
         <source>Show number of items in tabs</source>
         <translation>Tampilkan jumlah item di tab</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="214"/>
+        <location filename="../src/ui/configtablayout.ui" line="234"/>
         <source>Sho&amp;w Item Count</source>
         <translation>Tampilkan Jumlah Item</translation>
     </message>
@@ -1681,27 +1701,27 @@ Atur ke 0 untuk menonaktifkan.</translation>
         <translation>Penampilan</translation>
     </message>
     <message>
-        <location filename="../src/gui/configurationmanager.cpp" line="472"/>
+        <location filename="../src/gui/configurationmanager.cpp" line="475"/>
         <source>Invalid value for option &quot;%1&quot;</source>
         <translation>Nilai tidak valid untuk opsi “%1”</translation>
     </message>
     <message>
-        <location filename="../src/gui/configurationmanager.cpp" line="517"/>
+        <location filename="../src/gui/configurationmanager.cpp" line="520"/>
         <source>Reset preferences?</source>
         <translation>Atur ulang preferensi?</translation>
     </message>
     <message>
-        <location filename="../src/gui/configurationmanager.cpp" line="518"/>
+        <location filename="../src/gui/configurationmanager.cpp" line="521"/>
         <source>This action will reset all your preferences (in all tabs) to default values.&lt;br /&gt;&lt;br /&gt;Do you really want to &lt;strong&gt;reset all preferences&lt;/strong&gt;?</source>
         <translation>Aksi ini akan mengembalikan semua pengaturan Anda (di semua tab) ke nilai default.&lt;br /&gt;&lt;br /&gt;Apakah Anda benar-benar ingin &lt;strong&gt;mengembalikan semua pengaturan&lt;/strong&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/gui/configurationmanager.cpp" line="622"/>
+        <location filename="../src/gui/configurationmanager.cpp" line="625"/>
         <source>Restart Required</source>
         <translation>Perlu dijalankan ulang</translation>
     </message>
     <message>
-        <location filename="../src/gui/configurationmanager.cpp" line="623"/>
+        <location filename="../src/gui/configurationmanager.cpp" line="626"/>
         <source>Language will be changed after application is restarted.</source>
         <translation>Bahasa akan diubah setelah aplikasi dijalankan ulang.</translation>
     </message>
@@ -1714,7 +1734,7 @@ Atur ke 0 untuk menonaktifkan.</translation>
 <context>
     <name>FileWatcher</name>
     <message>
-        <location filename="../plugins/itemsync/filewatcher.cpp" line="654"/>
+        <location filename="../plugins/itemsync/filewatcher.cpp" line="795"/>
         <source>Failed to create synchronization directory &quot;%1&quot;!</source>
         <translation>Gagal membuat direktori sinkronisasi “%1”!</translation>
     </message>
@@ -1863,104 +1883,104 @@ Atur ke 0 untuk menonaktifkan.</translation>
 <context>
     <name>ItemEncryptedLoader</name>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="395"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="390"/>
         <source>Encryption failed!</source>
         <translation>Enkripsi gagal!</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="671"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="666"/>
         <source>To share encrypted items on other computer or session, you&apos;ll need these secret key files (keep them in a safe place):</source>
         <translation>Untuk berbagi item terenkripsi di komputer lain atau sesi lain, Anda memerlukan file kunci rahasia ini (simpanlah di tempat yang aman):</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="746"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="741"/>
         <source>GnuPG must be installed to view encrypted tabs.</source>
         <translation>GnuPG harus diinstal untuk melihat tab yang dienkripsi.</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="840"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="835"/>
         <source>Encrypt (needs GnuPG)</source>
         <translation>Enkripsi (membutuhkan GnuPG)</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="846"/>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="857"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="841"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="852"/>
         <source>Ctrl+L</source>
         <translation>Ctrl+L</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="851"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="846"/>
         <source>Decrypt</source>
         <translation>Dekripsi</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="862"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="857"/>
         <source>Decrypt and Copy</source>
         <translation>Dekripsi dan Salin</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="867"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="862"/>
         <source>Ctrl+Shift+L</source>
         <translation>Ctrl+Shift+L</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="872"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="867"/>
         <source>Decrypt and Paste</source>
         <translation>Dekripsi dan Tempel</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="877"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="872"/>
         <source>Enter</source>
         <translation>Masuk</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="934"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="929"/>
         <source>Failed to generate keys.</source>
         <translation>Gagal menghasilkan kunci.</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="946"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="941"/>
         <source>Error: %1</source>
         <translation>Kesalahan: %1</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="951"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="946"/>
         <source>Done</source>
         <translation>Selesai</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="967"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="962"/>
         <source>Creating new keys (this may take a few minutes)...</source>
         <translation>Membuat kunci baru (ini mungkin memakan waktu beberapa menit)...</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="968"/>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="971"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="963"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="966"/>
         <source>Cancel</source>
         <translation>Batalkan</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="970"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="965"/>
         <source>Setting new password...</source>
         <translation>Mengatur kata sandi baru...</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="973"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="968"/>
         <source>Encryption keys &lt;strong&gt;must be generated&lt;/strong&gt; before item encryption can be used.</source>
         <translation>Kunci enkripsi &lt;strong&gt;harus dihasilkan&lt;/strong&gt; sebelum enkripsi item dapat digunakan.</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="976"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="971"/>
         <source>Generate New Keys...</source>
         <translation>Buat Kunci Baru...</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="978"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="973"/>
         <source>Change Password...</source>
         <translation>Ubah Kata Sandi...</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="984"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="979"/>
         <source>Decryption failed!</source>
         <translation>Dekripsi gagal!</translation>
     </message>
@@ -2103,12 +2123,12 @@ Atur ke 0 untuk menonaktifkan.</translation>
 <context>
     <name>ItemNotesLoader</name>
     <message>
-        <location filename="../plugins/itemnotes/itemnotes.h" line="63"/>
+        <location filename="../plugins/itemnotes/itemnotes.h" line="78"/>
         <source>Notes</source>
         <translation>Catatan</translation>
     </message>
     <message>
-        <location filename="../plugins/itemnotes/itemnotes.h" line="65"/>
+        <location filename="../plugins/itemnotes/itemnotes.h" line="80"/>
         <source>Display notes for items.</source>
         <translation>Tampilkan catatan untuk item.</translation>
     </message>
@@ -2181,32 +2201,32 @@ Atur ke 0 untuk menonaktifkan.</translation>
 <context>
     <name>ItemPinnedLoader</name>
     <message>
-        <location filename="../plugins/itempinned/itempinned.cpp" line="179"/>
+        <location filename="../plugins/itempinned/itempinned.cpp" line="173"/>
         <source>Cannot Remove Pinned Items</source>
         <translation>Tidak dapat menghapus item yang disematkan</translation>
     </message>
     <message>
-        <location filename="../plugins/itempinned/itempinned.cpp" line="180"/>
+        <location filename="../plugins/itempinned/itempinned.cpp" line="174"/>
         <source>Unpin items first to remove them.</source>
         <translation>Lepaskan pin terlebih dahulu untuk menghapus item tersebut.</translation>
     </message>
     <message>
-        <location filename="../plugins/itempinned/itempinned.cpp" line="333"/>
+        <location filename="../plugins/itempinned/itempinned.cpp" line="325"/>
         <source>Pin</source>
         <translation>Pin</translation>
     </message>
     <message>
-        <location filename="../plugins/itempinned/itempinned.cpp" line="341"/>
+        <location filename="../plugins/itempinned/itempinned.cpp" line="333"/>
         <source>Unpin</source>
         <translation>Lepaskan pin</translation>
     </message>
     <message>
-        <location filename="../plugins/itempinned/itempinned.h" line="83"/>
+        <location filename="../plugins/itempinned/itempinned.h" line="98"/>
         <source>Pinned Items</source>
         <translation>Item yang Dipasang</translation>
     </message>
     <message>
-        <location filename="../plugins/itempinned/itempinned.h" line="86"/>
+        <location filename="../plugins/itempinned/itempinned.h" line="101"/>
         <source>&lt;p&gt;Pin items to lock them in current row and avoid deletion (unless unpinned).&lt;/p&gt;&lt;p&gt;Provides shortcuts and scripting functionality.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Pin item untuk mengunci item tersebut di baris saat ini dan mencegah penghapusan (kecuali jika dilepas pin).&lt;/p&gt;&lt;p&gt;Menyediakan pintasan dan fungsi skrip.&lt;/p&gt;</translation>
     </message>
@@ -2220,12 +2240,12 @@ Atur ke 0 untuk menonaktifkan.</translation>
         <translation>Telusuri...</translation>
     </message>
     <message>
-        <location filename="../plugins/itemsync/itemsync.cpp" line="726"/>
+        <location filename="../plugins/itemsync/itemsync.cpp" line="724"/>
         <source>Open Directory for Synchronization</source>
         <translation>Buka Direktori untuk Sinkronisasi</translation>
     </message>
     <message>
-        <location filename="../plugins/itemsync/itemsync.cpp" line="739"/>
+        <location filename="../plugins/itemsync/itemsync.cpp" line="737"/>
         <source>Failed to create synchronization directory</source>
         <translation>Gagal membuat direktori sinkronisasi</translation>
     </message>
@@ -2449,17 +2469,17 @@ Atur ke 0 untuk menonaktifkan.</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="303"/>
+        <location filename="../src/gui/mainwindow.cpp" line="305"/>
         <source>CopyQ Items (*.cpq)</source>
         <translation>Item CopyQ (*.cpq)</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="530"/>
+        <location filename="../src/gui/mainwindow.cpp" line="532"/>
         <source>Encryption Unavailable</source>
         <translation>Enkripsi Tidak Tersedia</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="531"/>
+        <location filename="../src/gui/mainwindow.cpp" line="533"/>
         <source>Encryption is not available (see logs for details).
 
 It will be possible to encrypt and decrypt tab data.</source>
@@ -2468,154 +2488,154 @@ It will be possible to encrypt and decrypt tab data.</source>
 Data tab dapat dienkripsi dan didekripsi.</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="593"/>
+        <location filename="../src/gui/mainwindow.cpp" line="595"/>
         <source>Import Password</source>
         <translation>Kata Sandi Impor</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="594"/>
+        <location filename="../src/gui/mainwindow.cpp" line="596"/>
         <source>Enter password for import:</source>
         <translation>Masukkan kata sandi untuk impor:</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="617"/>
+        <location filename="../src/gui/mainwindow.cpp" line="619"/>
         <source>Export Password</source>
         <translation>Kata Sandi Ekspor</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="618"/>
+        <location filename="../src/gui/mainwindow.cpp" line="620"/>
         <source>Enter password for export (empty for no encryption):</source>
         <translation>Masukkan kata sandi untuk ekspor (kosongkan jika tanpa enkripsi):</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="857"/>
+        <location filename="../src/gui/mainwindow.cpp" line="862"/>
         <source>&amp;Show/Hide</source>
         <translation>Tampilkan/Sembunyikan</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="895"/>
+        <location filename="../src/gui/mainwindow.cpp" line="926"/>
         <source>Exit?</source>
         <translation>Keluar?</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="896"/>
+        <location filename="../src/gui/mainwindow.cpp" line="927"/>
         <source>Do you want to &lt;strong&gt;exit&lt;/strong&gt; CopyQ?</source>
         <translation>Apakah Anda ingin &lt;strong&gt;keluar&lt;/strong&gt; dari CopyQ?</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="954"/>
+        <location filename="../src/gui/mainwindow.cpp" line="985"/>
         <source>&amp;File</source>
         <translation>Berkas</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1000"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1031"/>
         <source>&amp;Edit</source>
         <translation>Edit</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1024"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1055"/>
         <source>&amp;Item</source>
         <translation>&amp;Item</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1028"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1059"/>
         <source>&amp;Tabs</source>
         <translation>Tab</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1053"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1084"/>
         <source>&amp;Help</source>
         <translation>Bantuan</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1078"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1113"/>
         <source>&amp;New Tab</source>
         <translation>Tab Baru</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1080"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1115"/>
         <source>Rename &amp;Group %1</source>
         <translation>Ubah Nama Grup %1</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1082"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1117"/>
         <source>Re&amp;name Tab %1</source>
         <translation>Ubah Nama Tab %1</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1084"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1119"/>
         <source>Re&amp;move Tab %1</source>
         <translation>Hapus Tab %1</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1086"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1121"/>
         <source>Remove Group %1</source>
         <translation>Hapus Grup %1</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1088"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1123"/>
         <source>&amp;Change Tab Icon</source>
         <translation>Ubah Ikon Tab</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1131"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1166"/>
         <source>&amp;Clipboard: %1</source>
         <comment>Tray menu clipboard item format</comment>
         <translation>Papan Klip: %1</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="510"/>
+        <location filename="../src/gui/mainwindow.cpp" line="512"/>
         <source>Options for Import</source>
         <translation>Opsi untuk Impor</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="2725"/>
+        <location filename="../src/gui/mainwindow.cpp" line="2837"/>
         <source>CopyQ Error</source>
         <comment>Notification error message title</comment>
         <translation>Kesalahan CopyQ</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4297"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4480"/>
         <source>Options for Export</source>
         <translation>Opsi Ekspor</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4328"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4511"/>
         <source>Export Error</source>
         <translation>Kesalahan Ekspor</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4329"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4512"/>
         <source>Failed to export file %1!</source>
         <translation>Gagal mengekspor file %1!</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4437"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4620"/>
         <source>Import Error</source>
         <translation>Kesalahan Impor</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4438"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4621"/>
         <source>Failed to import file %1!</source>
         <translation>Gagal mengimpor file %1!</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4616"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4799"/>
         <source>Remove All Tabs in Group?</source>
         <translation>Hapus Semua Tab dalam Grup?</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4617"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4800"/>
         <source>Do you want to remove &lt;strong&gt;all tabs&lt;/strong&gt; in group &lt;strong&gt;%1&lt;/strong&gt;?</source>
         <translation>Apakah Anda ingin menghapus &lt;strong&gt;semua tab&lt;/strong&gt; dalam grup &lt;strong&gt;%1&lt;/strong&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4664"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4847"/>
         <source>Remove Tab?</source>
         <translation>Hapus Tab?</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4665"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4848"/>
         <source>Do you want to remove tab &lt;strong&gt;%1&lt;/strong&gt;?</source>
         <translation>Apakah Anda ingin menghapus tab &lt;strong&gt;%1&lt;/strong&gt;?</translation>
     </message>
@@ -2623,7 +2643,7 @@ Data tab dapat dienkripsi dan didekripsi.</translation>
 <context>
     <name>Proxy</name>
     <message>
-        <location filename="../plugins/itemfakevim/itemfakevim.cpp" line="516"/>
+        <location filename="../plugins/itemfakevim/itemfakevim.cpp" line="531"/>
         <source>Information</source>
         <translation>Informasi</translation>
     </message>
@@ -2637,13 +2657,13 @@ Data tab dapat dienkripsi dan didekripsi.</translation>
         <translation>clipboard</translation>
     </message>
     <message>
-        <location filename="../src/common/common.cpp" line="414"/>
+        <location filename="../src/common/common.cpp" line="401"/>
         <source>&lt;HIDDEN&gt;</source>
         <comment>Label for hidden/secret clipboard content</comment>
         <translation>&lt;HIDDEN&gt;</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/common/common.cpp" line="420"/>
+        <location filename="../src/common/common.cpp" line="407"/>
         <source>%1 (%n lines)</source>
         <comment>Label for multi-line text in clipboard</comment>
         <translation>
@@ -2651,25 +2671,25 @@ Data tab dapat dienkripsi dan didekripsi.</translation>
         </translation>
     </message>
     <message>
-        <location filename="../src/common/common.cpp" line="430"/>
+        <location filename="../src/common/common.cpp" line="417"/>
         <source>&lt;IMAGE&gt;</source>
         <comment>Label for image in clipboard</comment>
         <translation>&lt;IMAGE&gt;</translation>
     </message>
     <message>
-        <location filename="../src/common/common.cpp" line="432"/>
+        <location filename="../src/common/common.cpp" line="419"/>
         <source>&lt;ITEMS&gt;</source>
         <comment>Label for copied items in clipboard</comment>
         <translation>&lt;ITEMS&gt;</translation>
     </message>
     <message>
-        <location filename="../src/common/common.cpp" line="434"/>
+        <location filename="../src/common/common.cpp" line="421"/>
         <source>&lt;EMPTY&gt;</source>
         <comment>Label for empty clipboard</comment>
         <translation>&lt;EMPTY&gt;</translation>
     </message>
     <message>
-        <location filename="../src/common/common.cpp" line="436"/>
+        <location filename="../src/common/common.cpp" line="423"/>
         <source>&lt;DATA&gt;</source>
         <comment>Label for data in clipboard</comment>
         <translation>&lt;DATA&gt;</translation>
@@ -3077,11 +3097,21 @@ Data tab dapat dienkripsi dan didekripsi.</translation>
     </message>
     <message>
         <location filename="../src/gui/menuitems.cpp" line="153"/>
+        <source>Show &amp;Menu Bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/menuitems.cpp" line="154"/>
+        <source>Ctrl+M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/menuitems.cpp" line="156"/>
         <source>Open Item Context Menu</source>
         <translation>Menu Konteks Item Terbuka</translation>
     </message>
     <message>
-        <location filename="../src/gui/menuitems.cpp" line="154"/>
+        <location filename="../src/gui/menuitems.cpp" line="157"/>
         <source>Shift+F10</source>
         <comment>Default shortcut to open item context menu</comment>
         <translation>Shift+F10</translation>
@@ -3092,14 +3122,14 @@ Data tab dapat dienkripsi dan didekripsi.</translation>
         <translation>Tab %1 rusak atau beberapa plugin CopyQ hilang!</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="292"/>
+        <location filename="../src/main.cpp" line="319"/>
         <source>Session name must contain at most 16 characters
 which can be letters, digits, &apos;-&apos; or &apos;_&apos;!</source>
         <translation>Nama sesi harus berisi paling banyak 16 karakter
 yang dapat berupa huruf, angka, &apos;-&apos; or &apos;_&apos;!</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/scriptable/scriptableproxy.cpp" line="2283"/>
+        <location filename="../src/scriptable/scriptableproxy.cpp" line="2263"/>
         <source>Text Copied (%n lines)</source>
         <comment>Notification title for multi-line text in clipboard</comment>
         <translation>
@@ -3107,13 +3137,13 @@ yang dapat berupa huruf, angka, &apos;-&apos; or &apos;_&apos;!</translation>
         </translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptableproxy.cpp" line="2286"/>
+        <location filename="../src/scriptable/scriptableproxy.cpp" line="2266"/>
         <source>Text Copied</source>
         <comment>Notification title for single-line text in clipboard</comment>
         <translation>Teks yang disalin</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptableproxy.cpp" line="2302"/>
+        <location filename="../src/scriptable/scriptableproxy.cpp" line="2282"/>
         <source>Data Copied</source>
         <comment>Notification title for a copied data in clipboard</comment>
         <translation>Data telah disalin</translation>
@@ -3257,6 +3287,16 @@ Silakan periksa log untuk detail.</translation>
         <location filename="../src/gui/encryptionpassword.cpp" line="543"/>
         <source>Encryption Failed</source>
         <translation>Enkripsi Gagal</translation>
+    </message>
+    <message>
+        <location filename="../src/platform/win/winplatform.cpp" line="368"/>
+        <source>Screen Capture Prevention Unavailable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/platform/win/winplatform.cpp" line="369"/>
+        <source>The option to hide from screenshots is enabled but cannot take effect in a remote desktop session. Window content may be visible to screen capture.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3493,7 +3533,7 @@ Tab default adalah tab pertama.</translation>
         <location filename="../src/scriptable/commandhelp.cpp" line="145"/>
         <location filename="../src/scriptable/commandhelp.cpp" line="179"/>
         <location filename="../src/scriptable/commandhelp.cpp" line="184"/>
-        <location filename="../src/scriptable/scriptable.cpp" line="115"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="112"/>
         <source>COMMAND</source>
         <translation>PERINTAH</translation>
     </message>
@@ -3599,54 +3639,54 @@ Tab default adalah tab pertama.</translation>
         <translation>Jalankan server di latar belakang sebelum menjalankan perintah.</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="115"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="112"/>
         <source>Usage: copyq [%1]</source>
         <translation>Penggunaan: copyq [%1]</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="116"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="113"/>
         <source>Starts server if no command is specified.</source>
         <translation>Memulai server jika tidak ada perintah yang ditentukan.</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="117"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="114"/>
         <source>  COMMANDs:</source>
         <translation>  PERINTAH:</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="122"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="119"/>
         <source>NOTES:</source>
         <translation>CATATAN:</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="123"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="120"/>
         <source>  - Use dash argument (-) to read data from standard input.</source>
         <translation>  - Gunakan argumen tanda hubung (-) untuk membaca data dari masukan standar.</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="124"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="121"/>
         <source>  - Use double-dash argument (--) to read all following arguments without
     expanding escape sequences (i.e. \n, \t and others).</source>
         <translation>  - Gunakan argumen ganda (--) untuk membaca semua argumen berikutnya tanpa
     mengembangakan urutan pelarian (misalnya \n, \t, dan lainnya).</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="126"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="123"/>
         <source>  - Use ? for MIME to print available MIME types (default is &quot;text/plain&quot;).</source>
         <translation>  - Gunakan ? untuk MIME untuk menampilkan jenis MIME yang tersedia (default adalah “text/plain”).</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="131"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="128"/>
         <source>Invalid number of arguments!</source>
         <translation>Jumlah argumen tidak valid!</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="578"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="522"/>
         <source>Failed to export file &quot;%1&quot;</source>
         <translation>Gagal mengekspor berkas &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="583"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="527"/>
         <source>Failed to import file &quot;%1&quot;</source>
         <translation>Gagal mengimpor berkas &quot;%1&quot;</translation>
     </message>
@@ -3659,40 +3699,40 @@ Tab default adalah tab pertama.</translation>
         <translation type="vanished">Tidak dapat mengimpor file “%1”!</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="720"/>
-        <location filename="../src/scriptable/scriptable.cpp" line="755"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="667"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="683"/>
         <source>CopyQ Clipboard Manager</source>
         <translation>CopyQ Pengelola Clipboard</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="767"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="695"/>
         <source>Command not found!</source>
         <translation>Perintah tidak ditemukan!</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="866"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="794"/>
         <source>Terminating server.
 </source>
         <translation>Menonaktifkan server.
 </translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="1438"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="1398"/>
         <source>Invalid option &quot;%1&quot;!</source>
         <translation>Opsi tidak valid “%1”!</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="2915"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="2771"/>
         <source>Exception</source>
         <translation>Pengecualian</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="2916"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="2772"/>
         <source>Exception in %1</source>
         <translation>Pengecualian di %1</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="3031"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="2887"/>
         <source>Failed to copy to clipboard!</source>
         <translation>Gagal menyalin ke clipboard!</translation>
     </message>
@@ -3700,22 +3740,22 @@ Tab default adalah tab pertama.</translation>
 <context>
     <name>ScriptableProxy</name>
     <message>
-        <location filename="../src/scriptable/scriptableproxy.cpp" line="647"/>
+        <location filename="../src/scriptable/scriptableproxy.cpp" line="625"/>
         <source>Tab with given name doesn&apos;t exist!</source>
         <translation>Tab dengan nama yang diberikan tidak ada!</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptableproxy.cpp" line="652"/>
+        <location filename="../src/scriptable/scriptableproxy.cpp" line="630"/>
         <source>Tab name cannot be empty!</source>
         <translation>Nama tab tidak boleh kosong!</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptableproxy.cpp" line="993"/>
+        <location filename="../src/scriptable/scriptableproxy.cpp" line="981"/>
         <source>Tab with given name already exists!</source>
         <translation>Tab dengan nama yang sudah ada!</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptableproxy.cpp" line="2221"/>
+        <location filename="../src/scriptable/scriptableproxy.cpp" line="2201"/>
         <source>*Clipboard Storing Disabled*</source>
         <comment>Main window title if clipboard storing is disabled</comment>
         <translation>*Penyimpanan Clipboard Dinonaktifkan*</translation>
@@ -3855,17 +3895,17 @@ Atur ke 0 untuk menggunakan pengaturan global.</translation>
 <context>
     <name>TrayMenu</name>
     <message>
-        <location filename="../src/gui/traymenu.cpp" line="109"/>
+        <location filename="../src/gui/traymenu.cpp" line="144"/>
         <source>Press &apos;/&apos; to search</source>
         <translation>Tekan ‘/’ untuk mencari</translation>
     </message>
     <message>
-        <location filename="../src/gui/traymenu.cpp" line="111"/>
+        <location filename="../src/gui/traymenu.cpp" line="146"/>
         <source>Type to search</source>
         <translation>Ketik untuk mencari</translation>
     </message>
     <message>
-        <location filename="../src/gui/traymenu.cpp" line="127"/>
+        <location filename="../src/gui/traymenu.cpp" line="162"/>
         <source>&amp;%1. %2</source>
         <comment>Key hint (number shortcut) for items in tray menu (%1 is number, %2 is item label)</comment>
         <translation>&amp;%1. %2</translation>

@@ -4,20 +4,27 @@ set -xeuo pipefail
 
 # Run only specific tests that are expected to work on Wayland.
 default_wayland_tests=(
-    configPath
-    readLog
-    commandShowHide
-    commandCopy
-    commandClipboard
-    commandHasClipboardFormat
-    clipboardToItem
-    itemToClipboard
-    avoidStoringPasswords
-    trayShowHideAction
+    testCore:configPath
+    testCore:readLog
+    testCore:commandShowHide
+    testCore:commandCopy
+    testCore:commandClipboard
+    testCore:commandHasClipboardFormat
+    testCore:clipboardToItem
+    testCore:itemToClipboard
+    testCore:avoidStoringPasswords
+    testCore:trayShowHideAction
 )
 
-kwin_wayland --virtual --socket=copyq-wayland &
-trap "kill $!" QUIT TERM INT HUP EXIT
+QT_LOGGING_RULES="kwin*.debug=true;kf6.*.debug=true" \
+    kwin_wayland --virtual --socket=copyq-wayland 2>&1 > kwin.log &
+kwin_pid=$!
+kill_kwin() {
+    echo '--- KWIN Log ---'
+    cat kwin.log || true
+    kill $! || true
+}
+trap kill_kwin QUIT TERM INT HUP EXIT
 export WAYLAND_DISPLAY=copyq-wayland
 
 # Enable verbose logging.
@@ -27,11 +34,12 @@ export QT_LOGGING_RULES=${QT_LOGGING_RULES:-"*.debug=true;qt.*.debug=false;qt.*.
 export QT_QPA_PLATFORM=wayland
 
 # Smoke test the default session
-for i in {1..5}; do
+tries=5
+for ((i = 1; i <= tries; i++ )); do
     echo "Trying to start CopyQ server ($i)"
     if "${COPYQ_TESTS_EXECUTABLE:-./copyq}" --start-server exit; then
         break
-    elif [[ $i == 5 ]]; then
+    elif [[ $i == $tries ]]; then
         echo "❌ FAILED: Could not start CopyQ server"
         exit 1
     fi

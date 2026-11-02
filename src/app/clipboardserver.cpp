@@ -100,7 +100,7 @@ void cleanUpLogFilesTimer()
     timer->setInterval(cleanUpIntervalMs);
     timer->start();
 
-    auto callback = [=](){ dropLogsToFileCountAndSize(maxFiles, maxLogSize); };
+    auto callback = [maxFiles, maxLogSize](){ dropLogsToFileCountAndSize(maxFiles, maxLogSize); };
     QTimer::singleShot(startIntervalMs, qApp, callback);
     QObject::connect(timer, &QTimer::timeout, qApp, callback);
 }
@@ -154,6 +154,8 @@ ClipboardServer::ClipboardServer(QApplication *app, const QString &sessionName)
     QApplication::setQuitOnLastWindowClosed(false);
 
     ensureSettingsDirectoryExists();
+    ensureStateDirectoryExists();
+    migrateDataFiles();
 
     m_sharedData->itemFactory = new ItemFactory(m_sharedData, this);
     m_sharedData->notifications = new NotificationDaemon(this);
@@ -209,7 +211,7 @@ ClipboardServer::ClipboardServer(QApplication *app, const QString &sessionName)
     m_ignoreKeysTimer.setInterval(100);
     m_ignoreKeysTimer.setSingleShot(true);
 
-    initSingleShotTimer(&m_timerClearUnsentActionData, 2000, this, [&]() {
+    initSingleShotTimer(&m_timerClearUnsentActionData, 2000, this, [this]() {
         m_actionDataToSend.clear();
     });
 
@@ -276,6 +278,18 @@ void ClipboardServer::startMonitoring()
 {
     if (m_monitor || m_exitting || m_ignoreNewConnections || !m_wnd->isMonitoringEnabled())
         return;
+
+    // A graceful exit was already requested (logout, SIGTERM/SIGINT): never start
+    // a new monitor process. The monitor child is killed together with the server,
+    // and a monitor started at that point aborts in Qt platform initialization
+    // ("This application failed to start because no Qt platform plugin could be
+    // initialized") because the X11/Wayland display connection is already gone.
+    // The request is latched in handleSignal() - before QCoreApplication::exit(),
+    // while m_exitting is only set later, in onAboutToQuit().
+    if (qApp->property("CopyQ_quitting").toBool()) {
+        COPYQ_LOG("Not starting monitor - quit requested");
+        return;
+    }
 
     COPYQ_LOG("Starting monitor");
 
@@ -425,7 +439,7 @@ bool ClipboardServer::askToQuit()
         QTimer timerCheckRunningCommands;
         timerCheckRunningCommands.setInterval(1000);
         connect( &timerCheckRunningCommands, &QTimer::timeout,
-                 exitButton, [&]() {
+                 exitButton, [this, exitButton]() {
                     if ( !hasRunningCommands() )
                         exitButton->click();
                  });
@@ -717,8 +731,8 @@ bool ClipboardServer::eventFilter(QObject *object, QEvent *ev)
 
         // Close menu on Escape key and give focus back to search edit or browser.
         if (type == QEvent::KeyPress) {
-            QKeyEvent *keyevent = static_cast<QKeyEvent *>(ev);
-            QMenu *menu = qobject_cast<QMenu*>(object);
+            auto *keyevent = static_cast<QKeyEvent *>(ev);
+            auto *menu = qobject_cast<QMenu*>(object);
             if (menu && keyevent->key() == Qt::Key_Escape) {
                 menu->close();
                 if (m_wnd->browseMode())
@@ -733,7 +747,7 @@ bool ClipboardServer::eventFilter(QObject *object, QEvent *ev)
                         .value<Qt::TextInteractionFlags>()
                         .testFlag(Qt::TextSelectableByKeyboard)) )
         {
-            QKeyEvent *keyevent = static_cast<QKeyEvent *>(ev);
+            auto *keyevent = static_cast<QKeyEvent *>(ev);
             if ( keyevent->key() == Qt::Key_Left
                  || keyevent->key() == Qt::Key_Right
                  || keyevent->key() == Qt::Key_Up
@@ -746,7 +760,7 @@ bool ClipboardServer::eventFilter(QObject *object, QEvent *ev)
     } else if (type == QEvent::Paint) {
         setActivePaintDevice(object);
     } else if (type == QEvent::FontChange) {
-        QTextEdit *editor = qobject_cast<QTextEdit*>(object);
+        auto *editor = qobject_cast<QTextEdit*>(object);
         if (editor)
             setTabWidth(editor, m_textTabSize);
     } else if ( type == QEvent::ApplicationStateChange && m_saveOnDeactivate ) {
@@ -777,6 +791,9 @@ void ClipboardServer::loadSettings(AppConfig *appConfig)
         return;
 
     m_loadingSettings = true;
+
+    const int gen = qApp->property("CopyQ_config_generation").toInt();
+    qApp->setProperty("CopyQ_config_generation", gen + 1);
     COPYQ_LOG("Loading configuration");
 
     QSettings &settings = appConfig->settings();

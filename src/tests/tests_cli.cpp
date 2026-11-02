@@ -12,12 +12,12 @@
 
 #include <QRegularExpression>
 
-void Tests::configPath()
+void CoreTests::configPath()
 {
     RUN("print(info('config'))", Settings().fileName());
 }
 
-void Tests::readLog()
+void CoreTests::readLog()
 {
     QByteArray stdoutActual;
     QByteArray stderrActual;
@@ -49,7 +49,7 @@ void Tests::readLog()
         m_test->setEnv("COPYQ_LOG_DIR", tmpDir.path());
         QCOMPARE( run(Args("info") << "log", &stdoutActual, &stderrActual), 0 );
         QVERIFY2( testStderr(stderrActual), stderrActual );
-        const QString actualPattern = QString::fromUtf8(stdoutActual)
+        const auto actualPattern = QString::fromUtf8(stdoutActual)
             .replace(QRegularExpression(R"(-\d*-\d*\.log\n$)"), "*");
         const QString expectedPattern = QStringLiteral("%1/copyq*").arg(tmpDir.path());
         QCOMPARE( actualPattern, expectedPattern );
@@ -60,7 +60,7 @@ void Tests::readLog()
         m_test->setEnv("COPYQ_LOG_DIR", "");
         QCOMPARE( run(Args("info") << "log", &stdoutActual, &stderrActual), 0 );
         QVERIFY2( testStderr(stderrActual), stderrActual );
-        const QString actualPattern = QString::fromUtf8(stdoutActual)
+        const auto actualPattern = QString::fromUtf8(stdoutActual)
             .replace(QRegularExpression(R"(-\d*-\d*\.log\n$)"), "*");
         const QString expectedPattern = QStringLiteral("%1/copyq*")
             .arg(getDefaultLogFilePath());
@@ -68,13 +68,13 @@ void Tests::readLog()
     }
 }
 
-void Tests::rotateLog()
+void CoreTests::rotateLog()
 {
     QByteArray stdoutActual;
     QByteArray stderrActual;
     QCOMPARE( run(Args("info") << "log", &stdoutActual, &stderrActual), 0 );
     QVERIFY2( testStderr(stderrActual), stderrActual );
-    const QString logDirPath = QString::fromUtf8(stdoutActual).section("/", 0, -2);
+    const auto logDirPath = QString::fromUtf8(stdoutActual).section("/", 0, -2);
     QVERIFY( !logDirPath.isEmpty() );
 
     const QByteArray logData(logFileSize, '-');
@@ -104,7 +104,7 @@ void Tests::rotateLog()
     QVERIFY2( logFiles.isEmpty(), logFilesMessage(logFileCount) );
 }
 
-void Tests::pluginsDisabled()
+void CoreTests::pluginsDisabled()
 {
     // Ensure that plugins that could interfere with tests are disabled
     RUN_EXPECT_ERROR("plugins.itemsync", CommandException);
@@ -116,7 +116,7 @@ void Tests::pluginsDisabled()
     QVERIFY2( !log.contains("[copyq.plugin"), log );
 }
 
-void Tests::commandHelp()
+void CoreTests::commandHelp()
 {
     QByteArray stdoutActual;
     QByteArray stderrActual;
@@ -124,7 +124,7 @@ void Tests::commandHelp()
     QVERIFY2( testStderr(stderrActual), stderrActual );
     QVERIFY(!stdoutActual.isEmpty());
 
-    const QStringList commands = QStringList()
+    const auto commands = QStringList()
             << "show"
             << "hide"
             << "toggle"
@@ -143,7 +143,7 @@ void Tests::commandHelp()
         QCOMPARE( run(Args("help") << command, &stdoutActual, &stderrActual), 0 );
         QVERIFY2( testStderr(stderrActual), stderrActual );
         QVERIFY( !stdoutActual.isEmpty() );
-        const QString help = QString::fromUtf8(stdoutActual);
+        const auto help = QString::fromUtf8(stdoutActual);
         QVERIFY( help.contains(QRegularExpression("\\b" + QRegularExpression::escape(command) + "\\b")) );
     }
 
@@ -152,7 +152,7 @@ void Tests::commandHelp()
     RUN_EXPECT_ERROR("help" << "xxx", CommandException);
 }
 
-void Tests::commandVersion()
+void CoreTests::commandVersion()
 {
     QByteArray stdoutActual;
     QByteArray stderrActual;
@@ -160,7 +160,7 @@ void Tests::commandVersion()
     QVERIFY2( testStderr(stderrActual), stderrActual );
     QVERIFY( !stdoutActual.isEmpty() );
 
-    const QString version = QString::fromUtf8(stdoutActual);
+    const auto version = QString::fromUtf8(stdoutActual);
     // Version contains application name and version.
     QVERIFY( version.contains(QRegularExpression("\\bCopyQ\\b.*" + QRegularExpression::escape(versionString))) );
     // Version contains Qt version.
@@ -179,7 +179,7 @@ void Tests::commandVersion()
     );
 }
 
-void Tests::badCommand()
+void CoreTests::badCommand()
 {
     RUN_EXPECT_ERROR_WITH_STDERR("xxx", CommandException, "xxx");
     RUN_EXPECT_ERROR_WITH_STDERR("tab" << testTab(1) << "yyy", CommandException, "yyy");
@@ -193,7 +193,7 @@ void Tests::badCommand()
              .contains(QRegularExpression("^" + QRegularExpression::escape(testTab(1)) + "$")) );
 }
 
-void Tests::badSessionName()
+void CoreTests::badSessionName()
 {
     m_test->ignoreErrors(QRegularExpression(
         "ERROR: Session name must contain at most 16 characters"
@@ -203,12 +203,12 @@ void Tests::badSessionName()
     RUN_EXPECT_ERROR("-s" << "spaces disallowed" << "", CommandBadSyntax);
 }
 
-void Tests::commandSession()
+void CoreTests::commandSession()
 {
     RUN("--session" << sessionName << "eval" << "print(1)", "1");
 }
 
-void Tests::commandCatchExceptions()
+void CoreTests::commandCatchExceptions()
 {
     RUN("try { removeTab('MISSING') } catch(e) { print(e) }",
         "Error: Tab with given name doesn't exist!");

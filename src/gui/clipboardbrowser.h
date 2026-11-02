@@ -18,7 +18,6 @@
 
 class ItemEditorWidget;
 class ItemFactory;
-class PersistentDisplayItem;
 class QPersistentModelIndex;
 class QProgressBar;
 class QPushButton;
@@ -337,7 +336,7 @@ class ClipboardBrowser final : public QListView
          */
         QModelIndex indexNear(int offset) const;
 
-        int getDropRow(QPoint position);
+        int getDropRow(QPoint position) const;
 
         void connectModelAndDelegate();
 

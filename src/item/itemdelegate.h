@@ -4,6 +4,7 @@
 
 
 #include "gui/clipboardbrowsershared.h"
+#include "item/persistentdisplayitem.h"
 
 #include <QItemDelegate>
 #include <QTimer>
@@ -17,7 +18,6 @@ class ItemEditorWidget;
 class ItemFactory;
 class ItemFilter;
 class ItemWidget;
-class PersistentDisplayItem;
 using ItemFilterPtr = std::shared_ptr<ItemFilter>;
 
 constexpr int defaultItemHeight = 100;
@@ -120,7 +120,7 @@ class ItemDelegate final : public QItemDelegate
         struct Item {
             ItemWidget *operator->() const noexcept { return item.get(); }
             ItemWidget *get() const noexcept { return item.get(); }
-            operator bool() const noexcept { return static_cast<bool>(item); }
+            explicit operator bool() const noexcept { return static_cast<bool>(item); }
 
             std::shared_ptr<ItemWidget> item;
             int appliedFilterId = 0;

@@ -9,27 +9,27 @@
         <translation>Tietoja</translation>
     </message>
     <message>
-        <location filename="../src/gui/aboutdialog.cpp" line="87"/>
+        <location filename="../src/gui/aboutdialog.cpp" line="114"/>
         <source>Clipboard Manager</source>
         <translation>Leikepöydän muokkaaja</translation>
     </message>
     <message>
-        <location filename="../src/gui/aboutdialog.cpp" line="94"/>
+        <location filename="../src/gui/aboutdialog.cpp" line="121"/>
         <source>Author</source>
         <translation>Tekijä</translation>
     </message>
     <message>
-        <location filename="../src/gui/aboutdialog.cpp" line="95"/>
+        <location filename="../src/gui/aboutdialog.cpp" line="122"/>
         <source>E-mail</source>
         <translation>Sähköposti</translation>
     </message>
     <message>
-        <location filename="../src/gui/aboutdialog.cpp" line="96"/>
+        <location filename="../src/gui/aboutdialog.cpp" line="123"/>
         <source>Web</source>
         <translation>Web</translation>
     </message>
     <message>
-        <location filename="../src/gui/aboutdialog.cpp" line="97"/>
+        <location filename="../src/gui/aboutdialog.cpp" line="124"/>
         <source>Donate</source>
         <translation>Lahjoita</translation>
     </message>
@@ -97,17 +97,17 @@
 <context>
     <name>ActionHandler</name>
     <message>
-        <location filename="../src/gui/actionhandler.cpp" line="117"/>
+        <location filename="../src/gui/actionhandler.cpp" line="156"/>
         <source>Error: %1</source>
         <translation>Virhe: %1</translation>
     </message>
     <message>
-        <location filename="../src/gui/actionhandler.cpp" line="135"/>
+        <location filename="../src/gui/actionhandler.cpp" line="174"/>
         <source>Exit code: %1</source>
         <translation>Poistumiskoodi: %1</translation>
     </message>
     <message>
-        <location filename="../src/gui/actionhandler.cpp" line="169"/>
+        <location filename="../src/gui/actionhandler.cpp" line="207"/>
         <source>Command %1</source>
         <translation>Komento &apos;%1&apos;</translation>
     </message>
@@ -314,17 +314,17 @@
 <context>
     <name>ClipboardBrowser</name>
     <message>
-        <location filename="../src/gui/clipboardbrowser.cpp" line="1573"/>
+        <location filename="../src/gui/clipboardbrowser.cpp" line="1586"/>
         <source>Cannot add new items to tab %1. Please remove items manually to make space.</source>
         <translation>Uusia kohteita ei voi lisätä välilehteen %1. Poista kohteet manuaalisesti tilan vapauttamiseksi.</translation>
     </message>
     <message>
-        <location filename="../src/gui/clipboardbrowser.cpp" line="1897"/>
+        <location filename="../src/gui/clipboardbrowser.cpp" line="1913"/>
         <source>Discard Changes?</source>
         <translation>Hylätäänkö muutokset?</translation>
     </message>
     <message>
-        <location filename="../src/gui/clipboardbrowser.cpp" line="1898"/>
+        <location filename="../src/gui/clipboardbrowser.cpp" line="1914"/>
         <source>Do you really want to &lt;strong&gt;discard changes&lt;/strong&gt;?</source>
         <translation>Haluatko todella &lt;strong&gt;hylätä muutokset&lt;/strong&gt;?</translation>
     </message>
@@ -379,27 +379,27 @@
 <context>
     <name>ClipboardServer</name>
     <message>
-        <location filename="../src/app/clipboardserver.cpp" line="130"/>
+        <location filename="../src/app/clipboardserver.cpp" line="135"/>
         <source>CopyQ server is already running.</source>
         <translation>CopyQ-palvelin on jo käynnissä.</translation>
     </message>
     <message>
-        <location filename="../src/app/clipboardserver.cpp" line="403"/>
+        <location filename="../src/app/clipboardserver.cpp" line="419"/>
         <source>Cancel Active Commands</source>
         <translation>Peruuta aktiiviset komennot</translation>
     </message>
     <message>
-        <location filename="../src/app/clipboardserver.cpp" line="404"/>
+        <location filename="../src/app/clipboardserver.cpp" line="420"/>
         <source>Cancel active commands and exit?</source>
         <translation>Perutaanko aktiiviset komennot ja poistutaanko?</translation>
     </message>
     <message>
-        <location filename="../src/app/clipboardserver.cpp" line="407"/>
+        <location filename="../src/app/clipboardserver.cpp" line="423"/>
         <source>Cancel Exiting</source>
         <translation>Peruuta poistuminen</translation>
     </message>
     <message>
-        <location filename="../src/app/clipboardserver.cpp" line="408"/>
+        <location filename="../src/app/clipboardserver.cpp" line="424"/>
         <source>Exit Anyway</source>
         <translation>Poistu joka tapauksessa</translation>
     </message>
@@ -1371,36 +1371,56 @@ Käytä kohteen esikatselua näyttääksesi kokonaisia kohteita.</translation>
     </message>
     <message>
         <location filename="../src/ui/configtablayout.ui" line="95"/>
+        <source>Drag empty area to move the window, drag bottom right corner to resize it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/configtablayout.ui" line="98"/>
+        <source>Hide window &amp;title and frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/configtablayout.ui" line="105"/>
+        <source>Hide menu bar (Alt or the context menu shows it temporarily)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/configtablayout.ui" line="108"/>
+        <source>Hide m&amp;enu bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/configtablayout.ui" line="115"/>
         <source>Hide main window when closed</source>
         <translation>Piilota pääikkuna, kun se suljetaan</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="98"/>
+        <location filename="../src/ui/configtablayout.ui" line="118"/>
         <source>Hide &amp;main window</source>
         <translation>Piilota &amp;pääikkuna</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="108"/>
+        <location filename="../src/ui/configtablayout.ui" line="128"/>
         <source>Layout and Transparency</source>
         <translation>Asettelu ja läpinäkyvyys</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="117"/>
+        <location filename="../src/ui/configtablayout.ui" line="137"/>
         <source>Show tree with tabs instead of tab bar</source>
         <translation>Näytä puu, jossa on välilehdet välilehtipalkin sijaan</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="120"/>
+        <location filename="../src/ui/configtablayout.ui" line="140"/>
         <source>Tab T&amp;ree</source>
         <translation>Välilehti &amp;Puu</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="127"/>
+        <location filename="../src/ui/configtablayout.ui" line="147"/>
         <source>&amp;Focused transparency:</source>
         <translation>&amp;Kohdistettu läpinäkyvyys:</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="139"/>
+        <location filename="../src/ui/configtablayout.ui" line="159"/>
         <source>Transparency of main window if focused.
 
 Note: This is not supported on all systems.</source>
@@ -1409,12 +1429,12 @@ Note: This is not supported on all systems.</source>
 Huomautus: Tätä ei tueta kaikissa järjestelmissä.</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="169"/>
+        <location filename="../src/ui/configtablayout.ui" line="189"/>
         <source>&amp;Unfocused transparency:</source>
         <translation>&amp;Kohdistamaton läpinäkyvyys:</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="181"/>
+        <location filename="../src/ui/configtablayout.ui" line="201"/>
         <source>Transparency of main window if unfocused.
 
 Note: This is not supported on all systems.</source>
@@ -1423,12 +1443,12 @@ Note: This is not supported on all systems.</source>
 Huomautus: Tätä ei tueta kaikissa järjestelmissä.</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="211"/>
+        <location filename="../src/ui/configtablayout.ui" line="231"/>
         <source>Show number of items in tabs</source>
         <translation>Näytä kohteiden määrä välilehdillä</translation>
     </message>
     <message>
-        <location filename="../src/ui/configtablayout.ui" line="214"/>
+        <location filename="../src/ui/configtablayout.ui" line="234"/>
         <source>Sho&amp;w Item Count</source>
         <translation>&amp;Näytä kohteiden määrä</translation>
     </message>
@@ -1684,27 +1704,27 @@ Aseta arvoksi 0 poistaaksesi käytöstä.</translation>
         <translation>Ulkoasu</translation>
     </message>
     <message>
-        <location filename="../src/gui/configurationmanager.cpp" line="472"/>
+        <location filename="../src/gui/configurationmanager.cpp" line="475"/>
         <source>Invalid value for option &quot;%1&quot;</source>
         <translation>Epäkelvollinen arvo vaihtoehdolle &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/gui/configurationmanager.cpp" line="517"/>
+        <location filename="../src/gui/configurationmanager.cpp" line="520"/>
         <source>Reset preferences?</source>
         <translation>Nollataanko asetukset?</translation>
     </message>
     <message>
-        <location filename="../src/gui/configurationmanager.cpp" line="518"/>
+        <location filename="../src/gui/configurationmanager.cpp" line="521"/>
         <source>This action will reset all your preferences (in all tabs) to default values.&lt;br /&gt;&lt;br /&gt;Do you really want to &lt;strong&gt;reset all preferences&lt;/strong&gt;?</source>
         <translation>Tämä toiminta palauttaa kaikki asetuksesi (kaikilla välilehdillä) oletusarvoihin.&lt;br /&gt;&lt;br /&gt;Haluatko todella &lt;strong&gt;nollata kaikki asetukset&lt;/strong&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/gui/configurationmanager.cpp" line="622"/>
+        <location filename="../src/gui/configurationmanager.cpp" line="625"/>
         <source>Restart Required</source>
         <translation>Uudelleenkäynnistys vaaditaan</translation>
     </message>
     <message>
-        <location filename="../src/gui/configurationmanager.cpp" line="623"/>
+        <location filename="../src/gui/configurationmanager.cpp" line="626"/>
         <source>Language will be changed after application is restarted.</source>
         <translation>Kieli vaihtuu sovelluksen uudelleenkäynnistyksen jälkeen.</translation>
     </message>
@@ -1712,7 +1732,7 @@ Aseta arvoksi 0 poistaaksesi käytöstä.</translation>
 <context>
     <name>FileWatcher</name>
     <message>
-        <location filename="../plugins/itemsync/filewatcher.cpp" line="654"/>
+        <location filename="../plugins/itemsync/filewatcher.cpp" line="795"/>
         <source>Failed to create synchronization directory &quot;%1&quot;!</source>
         <translation>Synkronointihakemiston &quot;%1&quot; luominen epäonnistui!</translation>
     </message>
@@ -1797,104 +1817,104 @@ Aseta arvoksi 0 poistaaksesi käytöstä.</translation>
 <context>
     <name>ItemEncryptedLoader</name>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="395"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="390"/>
         <source>Encryption failed!</source>
         <translation>Salaus epäonnistui!</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="671"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="666"/>
         <source>To share encrypted items on other computer or session, you&apos;ll need these secret key files (keep them in a safe place):</source>
         <translation>Salattujen kohteiden jakamiseksi toisessa tietokoneessa tai istunnossa, tarvitset nämä salaiset avaintiedostot (säilytä ne turvallisessa paikassa):</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="746"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="741"/>
         <source>GnuPG must be installed to view encrypted tabs.</source>
         <translation>GnuPG on asennettava salattujen välilehtien tarkastelemiseksi.</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="840"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="835"/>
         <source>Encrypt (needs GnuPG)</source>
         <translation>Salaa (vaatii GnuPG:n)</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="846"/>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="857"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="841"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="852"/>
         <source>Ctrl+L</source>
         <translation>Ctrl+L</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="851"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="846"/>
         <source>Decrypt</source>
         <translation>Pura salaus</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="862"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="857"/>
         <source>Decrypt and Copy</source>
         <translation>Pura salaus ja kopioi</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="867"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="862"/>
         <source>Ctrl+Shift+L</source>
         <translation>Ctrl+Vaihto+L</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="872"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="867"/>
         <source>Decrypt and Paste</source>
         <translation>Pura salaus ja liitä</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="877"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="872"/>
         <source>Enter</source>
         <translation>Syötä</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="934"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="929"/>
         <source>Failed to generate keys.</source>
         <translation>Avainten luominen epäonnistui.</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="946"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="941"/>
         <source>Error: %1</source>
         <translation>Virhe: %1</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="951"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="946"/>
         <source>Done</source>
         <translation>Tehty</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="967"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="962"/>
         <source>Creating new keys (this may take a few minutes)...</source>
         <translation>Luodaan uusia avaimia (tämä voi kestää muutaman minuutin)...</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="968"/>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="971"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="963"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="966"/>
         <source>Cancel</source>
         <translation>Peruuta</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="970"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="965"/>
         <source>Setting new password...</source>
         <translation>Asetetaan uutta salasanaa...</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="973"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="968"/>
         <source>Encryption keys &lt;strong&gt;must be generated&lt;/strong&gt; before item encryption can be used.</source>
         <translation>Salausavaimet &lt;strong&gt;on luotava&lt;/strong&gt;, ennen kuin kohteiden salausta voidaan käyttää.</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="976"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="971"/>
         <source>Generate New Keys...</source>
         <translation>Luo uusia avaimia...</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="978"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="973"/>
         <source>Change Password...</source>
         <translation>Vaihda salasana...</translation>
     </message>
     <message>
-        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="984"/>
+        <location filename="../plugins/itemencrypted/itemencrypted.cpp" line="979"/>
         <source>Decryption failed!</source>
         <translation>Salauksen purku epäonnistui!</translation>
     </message>
@@ -2037,12 +2057,12 @@ Aseta arvoksi 0 poistaaksesi käytöstä.</translation>
 <context>
     <name>ItemNotesLoader</name>
     <message>
-        <location filename="../plugins/itemnotes/itemnotes.h" line="63"/>
+        <location filename="../plugins/itemnotes/itemnotes.h" line="78"/>
         <source>Notes</source>
         <translation>Huomautukset</translation>
     </message>
     <message>
-        <location filename="../plugins/itemnotes/itemnotes.h" line="65"/>
+        <location filename="../plugins/itemnotes/itemnotes.h" line="80"/>
         <source>Display notes for items.</source>
         <translation>Näytä huomautukset kohteille.</translation>
     </message>
@@ -2115,32 +2135,32 @@ Aseta arvoksi 0 poistaaksesi käytöstä.</translation>
 <context>
     <name>ItemPinnedLoader</name>
     <message>
-        <location filename="../plugins/itempinned/itempinned.cpp" line="179"/>
+        <location filename="../plugins/itempinned/itempinned.cpp" line="173"/>
         <source>Cannot Remove Pinned Items</source>
         <translation>Kiinnitettyjä kohteita ei voi poistaa</translation>
     </message>
     <message>
-        <location filename="../plugins/itempinned/itempinned.cpp" line="180"/>
+        <location filename="../plugins/itempinned/itempinned.cpp" line="174"/>
         <source>Unpin items first to remove them.</source>
         <translation>Irrota kohteet ensin poistaaksesi ne.</translation>
     </message>
     <message>
-        <location filename="../plugins/itempinned/itempinned.cpp" line="333"/>
+        <location filename="../plugins/itempinned/itempinned.cpp" line="325"/>
         <source>Pin</source>
         <translation>Kiinnitä</translation>
     </message>
     <message>
-        <location filename="../plugins/itempinned/itempinned.cpp" line="341"/>
+        <location filename="../plugins/itempinned/itempinned.cpp" line="333"/>
         <source>Unpin</source>
         <translation>Irrota kiinnitys</translation>
     </message>
     <message>
-        <location filename="../plugins/itempinned/itempinned.h" line="83"/>
+        <location filename="../plugins/itempinned/itempinned.h" line="98"/>
         <source>Pinned Items</source>
         <translation>Kiinnitetyt kohteet</translation>
     </message>
     <message>
-        <location filename="../plugins/itempinned/itempinned.h" line="86"/>
+        <location filename="../plugins/itempinned/itempinned.h" line="101"/>
         <source>&lt;p&gt;Pin items to lock them in current row and avoid deletion (unless unpinned).&lt;/p&gt;&lt;p&gt;Provides shortcuts and scripting functionality.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Kiinnitä kohteet lukitaksesi ne nykyiselle riville ja välttääksesi poistamisen (ellei niitä ole irrotettu).&lt;/p&gt;&lt;p&gt;Tarjoaa pikakuvakkeita ja komentosarjatoimintoja.&lt;/p&gt;</translation>
     </message>
@@ -2154,12 +2174,12 @@ Aseta arvoksi 0 poistaaksesi käytöstä.</translation>
         <translation>Selaa...</translation>
     </message>
     <message>
-        <location filename="../plugins/itemsync/itemsync.cpp" line="726"/>
+        <location filename="../plugins/itemsync/itemsync.cpp" line="724"/>
         <source>Open Directory for Synchronization</source>
         <translation>Avaa hakemisto synkronointia varten</translation>
     </message>
     <message>
-        <location filename="../plugins/itemsync/itemsync.cpp" line="739"/>
+        <location filename="../plugins/itemsync/itemsync.cpp" line="737"/>
         <source>Failed to create synchronization directory</source>
         <translation>Synkronointihakemiston luominen epäonnistui</translation>
     </message>
@@ -2383,171 +2403,171 @@ Aseta arvoksi 0 poistaaksesi käytöstä.</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="303"/>
+        <location filename="../src/gui/mainwindow.cpp" line="305"/>
         <source>CopyQ Items (*.cpq)</source>
         <translation>CopyQ-kohteet (*.cpq)</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="530"/>
+        <location filename="../src/gui/mainwindow.cpp" line="532"/>
         <source>Encryption Unavailable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="531"/>
+        <location filename="../src/gui/mainwindow.cpp" line="533"/>
         <source>Encryption is not available (see logs for details).
 
 It will be possible to encrypt and decrypt tab data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="593"/>
+        <location filename="../src/gui/mainwindow.cpp" line="595"/>
         <source>Import Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="594"/>
+        <location filename="../src/gui/mainwindow.cpp" line="596"/>
         <source>Enter password for import:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="617"/>
+        <location filename="../src/gui/mainwindow.cpp" line="619"/>
         <source>Export Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="618"/>
+        <location filename="../src/gui/mainwindow.cpp" line="620"/>
         <source>Enter password for export (empty for no encryption):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="857"/>
+        <location filename="../src/gui/mainwindow.cpp" line="862"/>
         <source>&amp;Show/Hide</source>
         <translation>&amp;Näytä/Piilota</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="895"/>
+        <location filename="../src/gui/mainwindow.cpp" line="926"/>
         <source>Exit?</source>
         <translation>Poistutaanko?</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="896"/>
+        <location filename="../src/gui/mainwindow.cpp" line="927"/>
         <source>Do you want to &lt;strong&gt;exit&lt;/strong&gt; CopyQ?</source>
         <translation>Haluatko &lt;strong&gt;poistua&lt;/strong&gt; CopyQ:sta?</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="954"/>
+        <location filename="../src/gui/mainwindow.cpp" line="985"/>
         <source>&amp;File</source>
         <translation>&amp;Tiedosto</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1000"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1031"/>
         <source>&amp;Edit</source>
         <translation>&amp;Muokkaa</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1024"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1055"/>
         <source>&amp;Item</source>
         <translation>&amp;Kohde</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1028"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1059"/>
         <source>&amp;Tabs</source>
         <translation>&amp;Välilehdet</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1053"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1084"/>
         <source>&amp;Help</source>
         <translation>&amp;Apu</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1078"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1113"/>
         <source>&amp;New Tab</source>
         <translation>&amp;Uusi välilehti</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1080"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1115"/>
         <source>Rename &amp;Group %1</source>
         <translation>Nimeä &amp;ryhmä %1 uudelleen</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1082"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1117"/>
         <source>Re&amp;name Tab %1</source>
         <translation>&amp;Nimeä välilehti %1 uudelleen</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1084"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1119"/>
         <source>Re&amp;move Tab %1</source>
         <translation>&amp;Poista välilehti %1</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1086"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1121"/>
         <source>Remove Group %1</source>
         <translation>Poista ryhmä %1</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1088"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1123"/>
         <source>&amp;Change Tab Icon</source>
         <translation>&amp;Vaihda välilehden kuvaketta</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="1131"/>
+        <location filename="../src/gui/mainwindow.cpp" line="1166"/>
         <source>&amp;Clipboard: %1</source>
         <comment>Tray menu clipboard item format</comment>
         <translation>&amp;Leikepöytä: %1</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="510"/>
+        <location filename="../src/gui/mainwindow.cpp" line="512"/>
         <source>Options for Import</source>
         <translation>Tuontivaihtoehdot</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="2725"/>
+        <location filename="../src/gui/mainwindow.cpp" line="2837"/>
         <source>CopyQ Error</source>
         <comment>Notification error message title</comment>
         <translation>CopyQ-virhe</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4297"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4480"/>
         <source>Options for Export</source>
         <translation>Vientivaihtoehdot</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4328"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4511"/>
         <source>Export Error</source>
         <translation>Vientivirhe</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4329"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4512"/>
         <source>Failed to export file %1!</source>
         <translation>Tiedoston %1 vienti epäonnistui!</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4437"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4620"/>
         <source>Import Error</source>
         <translation>Tuontivirhe</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4438"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4621"/>
         <source>Failed to import file %1!</source>
         <translation>Tiedoston %1 tuonti epäonnistui!</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4616"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4799"/>
         <source>Remove All Tabs in Group?</source>
         <translation>Poistetaanko kaikki ryhmässä olevat välilehdet?</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4617"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4800"/>
         <source>Do you want to remove &lt;strong&gt;all tabs&lt;/strong&gt; in group &lt;strong&gt;%1&lt;/strong&gt;?</source>
         <translation>Haluatko poistaa &lt;strong&gt;kaikki välilehdet&lt;/strong&gt; ryhmästä &lt;strong&gt;%1&lt;/strong&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4664"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4847"/>
         <source>Remove Tab?</source>
         <translation>Poistetaanko välilehti?</translation>
     </message>
     <message>
-        <location filename="../src/gui/mainwindow.cpp" line="4665"/>
+        <location filename="../src/gui/mainwindow.cpp" line="4848"/>
         <source>Do you want to remove tab &lt;strong&gt;%1&lt;/strong&gt;?</source>
         <translation>Haluatko poistaa välilehden &lt;strong&gt;%1&lt;/strong&gt;?</translation>
     </message>
@@ -2555,7 +2575,7 @@ It will be possible to encrypt and decrypt tab data.</source>
 <context>
     <name>Proxy</name>
     <message>
-        <location filename="../plugins/itemfakevim/itemfakevim.cpp" line="516"/>
+        <location filename="../plugins/itemfakevim/itemfakevim.cpp" line="531"/>
         <source>Information</source>
         <translation>Tieto</translation>
     </message>
@@ -2569,13 +2589,13 @@ It will be possible to encrypt and decrypt tab data.</source>
         <translation>&amp;leikepöytä</translation>
     </message>
     <message>
-        <location filename="../src/common/common.cpp" line="414"/>
+        <location filename="../src/common/common.cpp" line="401"/>
         <source>&lt;HIDDEN&gt;</source>
         <comment>Label for hidden/secret clipboard content</comment>
         <translation>&lt;PIILOTETTU&gt;</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/common/common.cpp" line="420"/>
+        <location filename="../src/common/common.cpp" line="407"/>
         <source>%1 (%n lines)</source>
         <comment>Label for multi-line text in clipboard</comment>
         <translation>
@@ -2584,25 +2604,25 @@ It will be possible to encrypt and decrypt tab data.</source>
         </translation>
     </message>
     <message>
-        <location filename="../src/common/common.cpp" line="430"/>
+        <location filename="../src/common/common.cpp" line="417"/>
         <source>&lt;IMAGE&gt;</source>
         <comment>Label for image in clipboard</comment>
         <translation>&lt;KUVA&gt;</translation>
     </message>
     <message>
-        <location filename="../src/common/common.cpp" line="432"/>
+        <location filename="../src/common/common.cpp" line="419"/>
         <source>&lt;ITEMS&gt;</source>
         <comment>Label for copied items in clipboard</comment>
         <translation>&lt;KOHTEET&gt;</translation>
     </message>
     <message>
-        <location filename="../src/common/common.cpp" line="434"/>
+        <location filename="../src/common/common.cpp" line="421"/>
         <source>&lt;EMPTY&gt;</source>
         <comment>Label for empty clipboard</comment>
         <translation>&lt;TYHJÄ&gt;</translation>
     </message>
     <message>
-        <location filename="../src/common/common.cpp" line="436"/>
+        <location filename="../src/common/common.cpp" line="423"/>
         <source>&lt;DATA&gt;</source>
         <comment>Label for data in clipboard</comment>
         <translation>&lt;DATA&gt;</translation>
@@ -3010,11 +3030,21 @@ It will be possible to encrypt and decrypt tab data.</source>
     </message>
     <message>
         <location filename="../src/gui/menuitems.cpp" line="153"/>
+        <source>Show &amp;Menu Bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/menuitems.cpp" line="154"/>
+        <source>Ctrl+M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/menuitems.cpp" line="156"/>
         <source>Open Item Context Menu</source>
         <translation>Avaa kohteen kontekstivalikko</translation>
     </message>
     <message>
-        <location filename="../src/gui/menuitems.cpp" line="154"/>
+        <location filename="../src/gui/menuitems.cpp" line="157"/>
         <source>Shift+F10</source>
         <comment>Default shortcut to open item context menu</comment>
         <translation>Vaihto+F10</translation>
@@ -3025,14 +3055,14 @@ It will be possible to encrypt and decrypt tab data.</source>
         <translation>Välilehti %1 on vioittunut tai jotkin CopyQ-liitännäiset puuttuvat!</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="292"/>
+        <location filename="../src/main.cpp" line="319"/>
         <source>Session name must contain at most 16 characters
 which can be letters, digits, &apos;-&apos; or &apos;_&apos;!</source>
         <translation>Istunnon nimessä saa olla enintään 16 merkkiä,
 jotka voivat olla kirjaimia, numeroita, &apos;-&apos; tai &apos;_&apos;!</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/scriptable/scriptableproxy.cpp" line="2283"/>
+        <location filename="../src/scriptable/scriptableproxy.cpp" line="2263"/>
         <source>Text Copied (%n lines)</source>
         <comment>Notification title for multi-line text in clipboard</comment>
         <translation>
@@ -3041,13 +3071,13 @@ jotka voivat olla kirjaimia, numeroita, &apos;-&apos; tai &apos;_&apos;!</transl
         </translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptableproxy.cpp" line="2286"/>
+        <location filename="../src/scriptable/scriptableproxy.cpp" line="2266"/>
         <source>Text Copied</source>
         <comment>Notification title for single-line text in clipboard</comment>
         <translation>Teksti kopioitu</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptableproxy.cpp" line="2302"/>
+        <location filename="../src/scriptable/scriptableproxy.cpp" line="2282"/>
         <source>Data Copied</source>
         <comment>Notification title for a copied data in clipboard</comment>
         <translation>Data kopioitu</translation>
@@ -3186,6 +3216,16 @@ Please check the logs for details.</source>
     <message>
         <location filename="../src/gui/encryptionpassword.cpp" line="543"/>
         <source>Encryption Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/platform/win/winplatform.cpp" line="368"/>
+        <source>Screen Capture Prevention Unavailable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/platform/win/winplatform.cpp" line="369"/>
+        <source>The option to hide from screenshots is enabled but cannot take effect in a remote desktop session. Window content may be visible to screen capture.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3423,7 +3463,7 @@ Oletus on ensimmäinen välilehti.</translation>
         <location filename="../src/scriptable/commandhelp.cpp" line="145"/>
         <location filename="../src/scriptable/commandhelp.cpp" line="179"/>
         <location filename="../src/scriptable/commandhelp.cpp" line="184"/>
-        <location filename="../src/scriptable/scriptable.cpp" line="115"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="112"/>
         <source>COMMAND</source>
         <translation>KOMENTO</translation>
     </message>
@@ -3529,54 +3569,54 @@ Oletus on ensimmäinen välilehti.</translation>
         <translation>Käynnistä palvelin taustalla ennen komennon suorittamista.</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="115"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="112"/>
         <source>Usage: copyq [%1]</source>
         <translation>Käyttö: copyq [%1]</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="116"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="113"/>
         <source>Starts server if no command is specified.</source>
         <translation>Käynnistää palvelimen, jos mitään komentoa ei ole määritetty.</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="117"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="114"/>
         <source>  COMMANDs:</source>
         <translation>  KOMENTO:t:</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="122"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="119"/>
         <source>NOTES:</source>
         <translation>HUOMAUTUKSET:</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="123"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="120"/>
         <source>  - Use dash argument (-) to read data from standard input.</source>
         <translation>  - Käytä viiva-argumenttia (-) lukeaksesi tietoja vakiosyötteestä.</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="124"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="121"/>
         <source>  - Use double-dash argument (--) to read all following arguments without
     expanding escape sequences (i.e. \n, \t and others).</source>
         <translation>  - Käytä kaksiviivaista argumenttia (--) lukeaksesi kaikki seuraavat argumentit ilman
   laajennat Escape-sekvenssit (eli \n, \t ja muut).</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="126"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="123"/>
         <source>  - Use ? for MIME to print available MIME types (default is &quot;text/plain&quot;).</source>
         <translation>  - Käytä &apos;?&apos; MIME:lle, tulostaaksesi käytettävissä olevat MIME-tyypit (oletus on &quot;teksti/täysi&quot;).</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="131"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="128"/>
         <source>Invalid number of arguments!</source>
         <translation>Epäkelvollinen argumenttien lukumäärä!</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="578"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="522"/>
         <source>Failed to export file &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="583"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="527"/>
         <source>Failed to import file &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3589,40 +3629,40 @@ Oletus on ensimmäinen välilehti.</translation>
         <translation type="vanished">Tiedostoa &quot;%1&quot; ei voi tuoda!</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="720"/>
-        <location filename="../src/scriptable/scriptable.cpp" line="755"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="667"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="683"/>
         <source>CopyQ Clipboard Manager</source>
         <translation>CopyQ-leikepöydän hallinta</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="767"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="695"/>
         <source>Command not found!</source>
         <translation>Komentoa ei löytynyt!</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="866"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="794"/>
         <source>Terminating server.
 </source>
         <translation>Lopetetaan palvelin.
 </translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="1438"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="1398"/>
         <source>Invalid option &quot;%1&quot;!</source>
         <translation>Epäkelvollinen vaihtoehto &quot;%1&quot;!</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="2915"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="2771"/>
         <source>Exception</source>
         <translation>Poikkeus</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="2916"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="2772"/>
         <source>Exception in %1</source>
         <translation>Poikkeus %1:ssa</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptable.cpp" line="3031"/>
+        <location filename="../src/scriptable/scriptable.cpp" line="2887"/>
         <source>Failed to copy to clipboard!</source>
         <translation>Kopioiminen leikepöydälle epäonnistui!</translation>
     </message>
@@ -3630,22 +3670,22 @@ Oletus on ensimmäinen välilehti.</translation>
 <context>
     <name>ScriptableProxy</name>
     <message>
-        <location filename="../src/scriptable/scriptableproxy.cpp" line="647"/>
+        <location filename="../src/scriptable/scriptableproxy.cpp" line="625"/>
         <source>Tab with given name doesn&apos;t exist!</source>
         <translation>Välilehti annetulla nimellä ei ole olemassa!</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptableproxy.cpp" line="652"/>
+        <location filename="../src/scriptable/scriptableproxy.cpp" line="630"/>
         <source>Tab name cannot be empty!</source>
         <translation>Välilehden nimi ei voi olla tyhjä!</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptableproxy.cpp" line="993"/>
+        <location filename="../src/scriptable/scriptableproxy.cpp" line="981"/>
         <source>Tab with given name already exists!</source>
         <translation>Välilehti annetulla nimellä on jo olemassa!</translation>
     </message>
     <message>
-        <location filename="../src/scriptable/scriptableproxy.cpp" line="2221"/>
+        <location filename="../src/scriptable/scriptableproxy.cpp" line="2201"/>
         <source>*Clipboard Storing Disabled*</source>
         <comment>Main window title if clipboard storing is disabled</comment>
         <translation>*Leikepöydän tallentaminen poistettu käytöstä*</translation>
@@ -3775,17 +3815,17 @@ Set to 0 to use global setting.</source>
 <context>
     <name>TrayMenu</name>
     <message>
-        <location filename="../src/gui/traymenu.cpp" line="109"/>
+        <location filename="../src/gui/traymenu.cpp" line="144"/>
         <source>Press &apos;/&apos; to search</source>
         <translation>Paina &apos;/&apos; hakeaksesi</translation>
     </message>
     <message>
-        <location filename="../src/gui/traymenu.cpp" line="111"/>
+        <location filename="../src/gui/traymenu.cpp" line="146"/>
         <source>Type to search</source>
         <translation>Kirjoita hakeaksesi</translation>
     </message>
     <message>
-        <location filename="../src/gui/traymenu.cpp" line="127"/>
+        <location filename="../src/gui/traymenu.cpp" line="162"/>
         <source>&amp;%1. %2</source>
         <comment>Key hint (number shortcut) for items in tray menu (%1 is number, %2 is item label)</comment>
         <translation>&amp;%1. %2</translation>

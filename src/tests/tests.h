@@ -12,14 +12,14 @@ class QProcess;
 class QByteArray;
 
 /**
- * Tests for the application.
+ * Core tests for the application.
  */
-class Tests final : public QObject
+class CoreTests final : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit Tests(const TestInterfacePtr &test, QObject *parent = nullptr);
+    explicit CoreTests(const TestInterfacePtr &test, QObject *parent = nullptr);
 
 private slots:
     void initTestCase();
@@ -71,6 +71,8 @@ private slots:
     void commandToggleConfig();
 
     void commandDialog();
+    void commandDialogFitsContents();
+    void commandDialogRestoreGeometry();
     void commandDialogCloseOnDisconnect();
 
     void commandMenuItems();
@@ -228,6 +230,7 @@ private slots:
     void trayPaste();
     void trayShowHideAction();
     void trayMenuToggleRapid();
+    void trayMenuFitsScreen();
 
     void pasteNext();
 
@@ -241,6 +244,12 @@ private slots:
     void envVariablePaths();
 
     void configTabs();
+
+    void framelessWindowShowsSizeGrip();
+    void menuBarShortcutShowsHiddenMenuBar();
+    void menuBarMnemonicOpensMenuOfHiddenMenuBar();
+    void menuBarContextMenuShowsMenuBar();
+    void menuBarContextMenuWithoutItems();
 
     void selectedItems();
 
@@ -337,6 +346,8 @@ private slots:
 
     void slowClipboard();
     void clipboardUriList();
+    void clipboardMimeSizeLimit();
+    void clipboardMimeSizeLimitConfig();
 
     void handleUnexpectedTypes();
 

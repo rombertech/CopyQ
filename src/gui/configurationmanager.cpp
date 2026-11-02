@@ -289,8 +289,10 @@ void ConfigurationManager::initOptions()
     bind<Config::transparency_focused>(m_tabLayout->spinBoxTransparencyFocused);
     bind<Config::transparency>(m_tabLayout->spinBoxTransparencyUnfocused);
     bind<Config::hide_tabs>(m_tabLayout->checkBoxHideTabs);
+    bind<Config::hide_menu_bar>(m_tabLayout->checkBoxHideMenuBar);
     bind<Config::hide_toolbar>(m_tabLayout->checkBoxHideToolbar);
     bind<Config::hide_toolbar_labels>(m_tabLayout->checkBoxHideToolbarLabels);
+    bind<Config::frameless_window>(m_tabLayout->checkBoxFramelessWindow);
     bind<Config::disable_tray>(m_tabTray->checkBoxDisableTray);
     bind<Config::hide_main_window>(m_tabLayout->checkBoxHideWindow);
     bind<Config::tab_tree>(m_tabLayout->checkBoxTabTree);
@@ -367,9 +369,8 @@ void ConfigurationManager::initOptions()
     bind<Config::close_on_unfocus_delay_ms>();
     bind<Config::close_on_unfocus_extra_delay_ms>();
 
-    bind<Config::frameless_window>();
-
     bind<Config::terminate_action_timeout_ms>();
+    bind<Config::clipboard_mime_size_limit>();
 }
 
 template <typename Config, typename Widget>
@@ -590,7 +591,7 @@ void ConfigurationManager::apply(AppConfig *appConfig)
 
         QWidget *w = m_tabItems->widget(i);
         if (w) {
-            PluginWidget *pluginWidget = qobject_cast<PluginWidget *>(w);
+            auto *pluginWidget = qobject_cast<PluginWidget *>(w);
             const auto &loader = pluginWidget->loader();
             loader->applySettings(settings);
         }

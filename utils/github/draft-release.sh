@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
 #
-# Drafts a GitHub release for the latest tag.
+# Creates a draft GitHub release for the latest tag with all artifacts.
 #
+# This is the single entry point for release creation.  CI workflows
+# (build-linux.yml, build-macos.yml, build-windows.yml) only build and
+# store workflow artifacts via actions/upload-artifact.  This script:
 #
-# CI workflows (build-linux.yml, build-macos.yml, build-windows.yml) attach
-# .AppImage, .dmg, .zip, and .exe files to the draft release directly. This
-# script adds: source
-# tarball, checksums-sha512.txt, and cosign.bundle.
+#   1. Validates version / tag / CHANGES.md
+#   2. Extracts the changelog body
+#   3. Creates a source tarball
+#   4. Waits for CI workflow runs to complete
+#   5. Downloads workflow artifacts locally
+#   6. Generates checksums and cosign signature
+#   7. Creates (or updates) the draft release
+#   8. Uploads ALL assets in one shot
+#
+# Idempotency: reuse the same WORKDIR to resume an interrupted run.
+# Each step skips work that is already done.
 #
 # Requirements:
 #   - gh CLI (authenticated)
@@ -19,7 +29,6 @@
 #
 #   VERSION  Expected version, e.g. 14.0.0. Must match the latest git tag.
 #   WORKDIR  Directory for artifacts (default: ./release-VERSION).
-#            Reuse the same directory to resume an interrupted run.
 
 set -euo pipefail
 
@@ -27,7 +36,9 @@ set -euo pipefail
 die() { printf 'Error: %s\n' "$1" >&2; exit 1; }
 log() { printf '==> %s\n' "$1" >&2; }
 
-# resolve repo root and validate version against latest tag
+# ---------------------------------------------------------------------------
+# Validate version and tag
+# ---------------------------------------------------------------------------
 
 repo_root="$(git rev-parse --show-toplevel)"
 changes_file="$repo_root/CHANGES.md"
@@ -53,7 +64,9 @@ mkdir -p "$workdir"
 workdir="$(cd "$workdir" && pwd)"
 log "Working directory: $workdir"
 
-# extract changelog and create/update draft release
+# ---------------------------------------------------------------------------
+# Extract changelog
+# ---------------------------------------------------------------------------
 
 extract_changelog() {
     awk -v ver="$version" '
@@ -71,15 +84,9 @@ changelog_body="$(extract_changelog)"
 [[ -n "$changelog_body" ]] || die "No changelog entry for version $version in CHANGES.md"
 log "Extracted changelog ($(echo "$changelog_body" | wc -l) lines)"
 
-if gh release view "$tag" --json tagName >/dev/null 2>&1; then
-    log "Release $tag exists — updating title and body"
-    gh release edit "$tag" --draft --title "$version" --notes "$changelog_body"
-else
-    log "Creating draft release for $tag"
-    gh release create "$tag" --draft --title "$version" --notes "$changelog_body"
-fi
-
-# create source tarball and upload
+# ---------------------------------------------------------------------------
+# Create source tarball (skip if exists)
+# ---------------------------------------------------------------------------
 
 source_tarball="$workdir/CopyQ-$version.tar.gz"
 if [[ -f "$source_tarball" ]]; then
@@ -90,83 +97,61 @@ else
         --prefix="CopyQ-$version/" --output="$source_tarball" "$tag"
 fi
 
-log "Uploading source tarball to release $tag ..."
-gh release upload "$tag" "$source_tarball" --clobber
+# ---------------------------------------------------------------------------
+# Wait for CI builds and download artifacts
+# ---------------------------------------------------------------------------
 
-# wait for CI build artifacts on the release
+# Resolve the workflow run ID for a given workflow file.
+get_run_id() {
+    local workflow="$1"
+    local tag_sha="$2"
+    gh run list --workflow "$workflow" --branch "$tag" \
+        --limit 1 --json databaseId --jq '.[0].databaseId // empty'
+}
+
+linux_run_id="$(get_run_id "build-linux.yml" "$tag")"
+macos_run_id="$(get_run_id "build-macos.yml" "$tag")"
+windows_run_id="$(get_run_id "build-windows.yml" "$tag")"
+
+log "Watching workflows..."
+gh run watch "$linux_run_id" --exit-status --interval 30
+gh run watch "$macos_run_id" --exit-status --interval 30
+gh run watch "$windows_run_id" --exit-status --interval 30
 
 expected_assets=(
-    "CopyQ-${version}-x86_64.AppImage"
-    "CopyQ-${version}-macos-12-m1.dmg"
-    "CopyQ-${version}-macos-13.dmg"
-    "copyq-${version}-setup.exe"
-    "copyq-${version}.zip"
+    "CopyQ-${version}-x86_64.AppImage:$linux_run_id"
+    "CopyQ-${version}-macos-13.dmg:$macos_run_id"
+    "CopyQ-${version}-macos-13-m1.dmg:$macos_run_id"
+    "copyq-${version}-setup.exe:$windows_run_id"
+    "copyq-${version}.zip:$windows_run_id"
 )
 
-wait_for_builds() {
-    local tag_sha
-    tag_sha="$(git rev-list -n 1 "$tag")"
-    if [[ -z "$tag_sha" ]]; then
-        die "Could not resolve commit SHA for tag $tag"
-    fi
+for asset_mapping in "${expected_assets[@]}"; do
+    asset_name=$(cut -f1 -d: <<<"$asset_mapping")
+    run_id=$(cut -f2 -d: <<<"$asset_mapping")
+    if [[ ! -f "$workdir/$asset_name" ]]; then
+        log "Fetching $asset_name from run ID $run_id..."
+        asset_id=$(gh api repos/:owner/:repo/actions/runs/$run_id/artifacts \
+            --jq '.artifacts[]|select(.name=="'"$asset_name"'")|.id')
 
-    log "Getting Linux build run for tag $tag (commit $tag_sha)..."
-    local linux_run
-    linux_run="$(gh run list --workflow build-linux.yml --commit "$tag_sha" --limit 1 --json databaseId --jq '.[0].databaseId // empty')"
-    if [[ -z "$linux_run" ]]; then
-        die "Could not find Linux build run for commit $tag_sha"
-    fi
-    log "Watching Linux build (run $linux_run)..."
-    gh run watch "$linux_run" --exit-status --interval 30 || die "Linux build failed"
+        target=$workdir/$asset_name
+        gh api /repos/:owner/:repo/actions/artifacts/"$asset_id"/zip > "$target"
 
-    log "Getting macOS build run for tag $tag (commit $tag_sha)..."
-    local macos_run
-    macos_run="$(gh run list --workflow build-macos.yml --commit "$tag_sha" --limit 1 --json databaseId --jq '.[0].databaseId // empty')"
-    if [[ -z "$macos_run" ]]; then
-        die "Could not find macOS build run for commit $tag_sha"
-    fi
-    log "Watching macOS build (run $macos_run)..."
-    gh run watch "$macos_run" --exit-status --interval 30 || die "macOS build failed"
-
-    log "Getting Windows build run for tag $tag (commit $tag_sha)..."
-    local windows_run
-    windows_run="$(gh run list --workflow build-windows.yml --commit "$tag_sha" --limit 1 --json databaseId --jq '.[0].databaseId // empty')"
-    if [[ -z "$windows_run" ]]; then
-        die "Could not find Windows build run for commit $tag_sha"
-    fi
-    log "Watching Windows build (run $windows_run)..."
-    gh run watch "$windows_run" --exit-status --interval 30 || die "Windows build failed"
-    log "All builds completed successfully"
-}
-
-has_all_assets() {
-    local assets
-    assets="$(gh release view "$tag" --json assets --jq '.assets[].name')"
-    for name in "${expected_assets[@]}"; do
-        if ! echo "$assets" | grep -qxF "$name"; then
-            return 1
+        if [[ $(stat -c%s "$target") -lt 100000 ]]; then
+            die "Failed to fetch artifact"
         fi
-    done
-    return 0
-}
-
-if has_all_assets; then
-    log "All expected build artifacts already on the release"
-else
-    wait_for_builds
-    if ! has_all_assets; then
-        log "Current release assets:"
-        gh release view "$tag" --json assets --jq '.assets[].name' >&2
-        die "CI builds completed but not all expected assets were uploaded to the release"
     fi
-    log "All expected build artifacts are now on the release"
-fi
+done
 
-# download assets, checksum, and sign
+log "All builds completed and artifacts downloaded"
+
+# ---------------------------------------------------------------------------
+# Checksums and cosign signature (skip if cosign.bundle exists)
+# ---------------------------------------------------------------------------
 
 all_assets=(
     "CopyQ-${version}.tar.gz"
-    "${expected_assets[@]}"
+    "${expected_assets[@]/:*}"
 )
 
 checksums_file="$workdir/checksums-sha512.txt"
@@ -175,12 +160,6 @@ cosign_bundle="$workdir/cosign.bundle"
 if [[ -f "$cosign_bundle" ]]; then
     log "Checksums and signature already exist"
 else
-    log "Downloading release assets ..."
-    for name in "${expected_assets[@]}"; do
-        gh release download "$tag" --dir "$workdir" --clobber \
-            --pattern "$name"
-    done
-
     log "Generating checksums ..."
     (
         cd "$workdir"
@@ -198,13 +177,30 @@ else
     log "Signature verified"
 fi
 
-# upload checksums and signature
+# ---------------------------------------------------------------------------
+# Create or update the draft release
+# ---------------------------------------------------------------------------
 
-log "Uploading checksums and signature to release $tag ..."
-gh release upload "$tag" \
-    "$checksums_file" \
-    "$cosign_bundle" \
-    --clobber
+if gh release view "$tag" --json tagName >/dev/null 2>&1; then
+    log "Release $tag exists — updating title and body"
+    gh release edit "$tag" --draft --title "$version" --notes "$changelog_body"
+else
+    log "Creating draft release for $tag"
+    gh release create "$tag" --draft --title "$version" --notes "$changelog_body"
+fi
+
+# ---------------------------------------------------------------------------
+# Upload all assets
+# ---------------------------------------------------------------------------
+
+upload_files=("$source_tarball")
+for name in "${expected_assets[@]/:*}"; do
+    upload_files+=("$workdir/$name")
+done
+upload_files+=("$checksums_file" "$cosign_bundle")
+
+log "Uploading ${#upload_files[@]} assets to release $tag ..."
+gh release upload "$tag" "${upload_files[@]}" --clobber
 
 log "Done: $(gh release view "$tag" --json url --jq '.url')"
 log ""

@@ -93,7 +93,7 @@ check_gnome_running() {
 
 export WAYLAND_DISPLAY=copyq-wayland
 socket=$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY
-for _ in {1..20}; do
+for ((i = 1; i < 20; i++ )); do
     check_gnome_running
     if [[ -S "$socket" ]]; then
         break
@@ -127,6 +127,12 @@ while ! extention_service_health_check; do
     sleep 0.5
 done
 echo "✅ PASSED: GNOME extension service is running"
+
+if ! gjs -m "$(dirname "$0")/test-gnome-extension-clients.js"; then
+    echo "❌ FAILED: GNOME extension client timeout test"
+    exit 1
+fi
+echo "✅ PASSED: GNOME extension client timeout test"
 
 export COPYQ_LOG_FILE="$XDG_RUNTIME_DIR/copyq.log"
 touch "$COPYQ_LOG_FILE"
@@ -184,4 +190,4 @@ test_clipboard PRIMARY 'PRIMARY TEXT'
 
 "$COPYQ_TESTS_EXECUTABLE" exit
 
-"$COPYQ_TESTS_TESTS_EXECUTABLE" commandHasClipboardFormat commandCopy commandClipboard
+"$COPYQ_TESTS_TESTS_EXECUTABLE" testCore:commandHasClipboardFormat testCore:commandCopy testCore:commandClipboard

@@ -210,6 +210,40 @@ On Windows (in PowerShell):
     echo "Logs will be written to $env:COPYQ_LOG_FILE"
     & 'C:\Program Files\CopyQ\copyq.exe'
 
+.. _faq-clipboard-size-limits:
+
+How to limit clipboard data size?
+---------------------------------
+
+Set the ``COPYQ_CLIPBOARD_MIME_SIZE_LIMIT`` environment variable to control the
+maximum size of clipboard data that CopyQ will store. The value is a
+semicolon-delimited list of ``pattern:bytes`` entries, where each pattern is a
+regular expression matched against the MIME type. The byte value supports
+``K``, ``M``, and ``G`` suffixes (case-insensitive, binary units: 1K = 1024).
+The first matching rule wins.
+
+For example::
+
+    COPYQ_CLIPBOARD_MIME_SIZE_LIMIT="text/html.*:0;.*:100M"
+
+This skips HTML data entirely and limits everything else to 100 MiB.
+
+To skip storing images from the clipboard::
+
+    COPYQ_CLIPBOARD_MIME_SIZE_LIMIT="image/.*:0;.*:100M"
+
+The built-in default limits all MIME types to 100 MiB. Custom rules replace
+the default only when at least one valid rule is parsed; otherwise the default
+applies. Set ``.*:-1`` to disable all limits. An empty size (e.g. ``text/plain:``)
+also means no limit.
+
+The same format can also be set from the CopyQ scripting API::
+
+    copyq config clipboard_mime_size_limit "text/html.*:0;.*:100M"
+
+The environment variable takes precedence over the ``config`` option. If both
+are set, the environment variable value is used.
+
 How to preserve the order of copied items when copying or pasting multiple items?
 ---------------------------------------------------------------------------------
 
@@ -381,15 +415,20 @@ Here is the correct command to use for some editors::
 Where to find saved items and configuration?
 --------------------------------------------
 
-You can find configuration and saved items in:
+Configuration is stored in:
 
 a. Windows folder ``%APPDATA%\copyq`` for installed version of CopyQ.
 b. Windows sub-folder ``config`` in unzipped portable version of CopyQ.
 c. Linux directory ``~/.config/copyq``.
-d. In a directory specific to a given CopyQ instance - see :ref:`sessions`.
+d. In a directory specific to a given CopyQ instance — see :ref:`sessions`.
 
-Run ``copyq info config`` to get absolute path to the configuration file
-(parent directory contains saved items).
+Run ``copyq info config`` to get absolute path to the configuration file.
+
+.. versionchanged:: 17.0.0
+   Tab data files and item data are in the data directory, and UI state
+   files and logs are in the state directory. Use ``copyq info data``,
+   ``copyq info state`` and ``copyq info log`` to find the exact paths.
+   See :ref:`sessions` for details.
 
 Why are items and configuration not saved?
 ------------------------------------------

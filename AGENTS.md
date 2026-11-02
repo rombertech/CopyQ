@@ -1,53 +1,38 @@
 ## Commands
 
-Always use the following environment variables for all `build/copyq` and
-`build/copyq-tests` commands:
+Always use the environment variables from `utils/env.sh` for all `build/copyq`
+and `build/copyq-tests` commands:
 
-    export COPYQ_SESSION_NAME="test"
-    export COPYQ_SETTINGS_PATH="build/copyq-test-conf"
-    export COPYQ_ITEM_DATA_PATH="build/copyq-test-data"
-    export COPYQ_PLUGINS=""
-    export COPYQ_DEFAULT_ICON="1"
-    export COPYQ_SESSION_COLOR="#f90"
-    export COPYQ_THEME_PREFIX="$PWD/shared/themes"
-    export COPYQ_PASSWORD="TEST123"
-    export COPYQ_LOG_LEVEL="DEBUG"
-    export QT_LOGGING_RULES="*.debug=true;qt.*.debug=false"
-    export QT_QPA_PLATFORM="xcb"
+    source utils/env.sh
 
 Run CMake to configure build:
 
-    cmake -B build -G Ninja \
-      -DCMAKE_BUILD_TYPE=Debug \
-      -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
-      -DCMAKE_INSTALL_PREFIX=$PWD/build/install \
-      -DCMAKE_CXX_FLAGS="-ggdb -fdiagnostics-color" \
-      -DWITH_TESTS=ON \
-      -DPEDANTIC=ON .
+    cmake -B build -DWITH_TESTS=ON -DPEDANTIC=ON .
 
 Build: `cmake -B build --build`
 
 Install: `cmake -B build --target install`
 
-Tests require X11 session (or Wayland) and a window manager. Use `Xvfb` and
-`openbox` to initialize the testing environment.
+**Start Xvfb and openbox (or a Wayland compositor) before running any
+`build/copyq` or `build/copyq-tests` command**, otherwise the process will
+crash (exit code 134 or SIGSEGV):
 
-Avoid running all tests, always specify a list tests functions to run.
+- X11 setup: `source utils/xvfb.sh`
+- Wayland setup: `USE_KWIN=1 source utils/wayland.sh`
 
-Run tests after build: `build/copyq-tests $TEST_FUNCTIONS`
+Avoid running all tests, always specify a list of test functions to run
+(`group:tag`):
 
-Run tests for specific plugin: `build/copyq-tests PLUGINS:sync $TEST_FUNCTIONS`
+    build/copyq-tests testCore:configPath testCore:badCommand
 
-List tests function names: `build/copyq-tests -functions`
+List test groups and tags: `build/copyq-tests -datatags`
 
-List tests function names for a plugin: `build/copyq-tests PLUGINS:image -functions`
+Run tests matching a substring: `COPYQ_TESTS_FILTER=clipboard build/copyq-tests`
 
 Start the server process: `build/copyq`
 
 In case any process exits with exit code 11 (SIGSEGV) use `coredumpctl` utility
 to find the root cause.
-
-Stop the server process: `build/copyq exit`
 
 List server and client logs (server process does not need to run): `build/copyq logs`
 
@@ -61,13 +46,14 @@ Run a script - requires server to be running:
 Scripting API documentation is in @docs/scripting-api.rst. After changing it,
 run @utils/script_docs_to_cpp.py to update the completion popup in the GUI.
 
-Useful scripts (omit the `tab(...)` call to use the default tab):
+Useful scripts:
 
 - `tab('TAB1'); add('ITEM')` - prepend ITEM text item to the TAB1 tab
-- `tab('TAB1'); size()` - item count in the TAB1 tab
-- `tab('TAB1'); read(0,1,2)` - read items at indexes 0, 1 and 2 in the TAB1 tab
-- `config()` - list configuration options with current value and description
+- `tab('TAB1'); size()` - TAB1 item count
+- `read(0,1,2)` - read items at indexes 0, 1 and 2 (default tab)
+- `config` - list configuration options with current value and description
 - `config('check_clipboard', 'false')` - set an option
+- `stats` - list QObjects, plugins, disk and memory usage etc
 
 ## Project structure
 

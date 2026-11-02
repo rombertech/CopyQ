@@ -126,7 +126,7 @@ int itemLabelPadding()
 
 QLabel *createLabel(const QString &objectName, QWidget *parent)
 {
-    QLabel *label = new QLabel(parent);
+    auto *label = new QLabel(parent);
     const int p = itemLabelPadding();
     label->setContentsMargins({p,p,p,p});
     label->setObjectName(objectName);
@@ -543,6 +543,15 @@ void TabTree::contextMenuEvent(QContextMenuEvent *event)
     event->accept();
 }
 
+void TabTree::mousePressEvent(QMouseEvent *event)
+{
+    QTreeWidget::mousePressEvent(event);
+
+    // Let the main window handle clicks on the empty area (moves frameless window).
+    if ( !indexAt(event->pos()).isValid() )
+        event->ignore();
+}
+
 void TabTree::dragEnterEvent(QDragEnterEvent *event)
 {
     if ( canDropToTab(*event) ) {
@@ -647,9 +656,9 @@ void TabTree::dropEvent(QDropEvent *event)
 
 bool TabTree::eventFilter(QObject *obj, QEvent *event)
 {
-    if ( obj == verticalScrollBar() ) {
-        if ( event->type() == QEvent::Show || event->type() == QEvent::Hide )
-            updateSize();
+    if ( obj == verticalScrollBar()
+         && (event->type() == QEvent::Show || event->type() == QEvent::Hide) ) {
+        updateSize();
     }
 
     return QTreeWidget::eventFilter(obj, event);

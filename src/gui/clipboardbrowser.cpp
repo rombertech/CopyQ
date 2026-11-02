@@ -84,7 +84,7 @@ private:
         imageFile.close();
 
         // Add URI to temporary file to drag'n'drop data.
-        const QUrl url = QUrl::fromLocalFile(m_filePath);
+        const auto url = QUrl::fromLocalFile(m_filePath);
         const QByteArray localUrl = url.toString().toUtf8();
         mimeData->setData( mimeUriList, localUrl );
 
@@ -426,7 +426,7 @@ QModelIndex ClipboardBrowser::indexNear(int offset) const
     return ::indexNear(this, offset);
 }
 
-int ClipboardBrowser::getDropRow(QPoint position)
+int ClipboardBrowser::getDropRow(QPoint position) const
 {
     const QModelIndex index = indexNear( position.y() );
     return index.isValid() ? index.row() : length();
@@ -699,9 +699,8 @@ void ClipboardBrowser::removeIndexes(const QModelIndexList &indexes, QString *er
 {
     Q_ASSERT(m_itemSaver);
 
-    if ( indexes.isEmpty() ) {
-        if (error)
-            *error = "No valid rows specified";
+    if ( indexes.isEmpty() && error ) {
+        *error = "No valid rows specified";
     }
 
     if ( !canRemoveItems(indexes, error) )
@@ -868,8 +867,14 @@ void ClipboardBrowser::onEditorNeedsChangeClipboard(const QByteArray &bytes, con
 
 void ClipboardBrowser::contextMenuEvent(QContextMenuEvent *event)
 {
-    if ( isInternalEditorOpen() || selectedIndexes().isEmpty() )
+    if ( isInternalEditorOpen() )
         return;
+
+    // Let the main window offer its own menu when there is no item menu.
+    if ( selectedIndexes().isEmpty() ) {
+        event->ignore();
+        return;
+    }
 
     QPoint pos = event->globalPos();
     emit showContextMenu(pos);
@@ -1015,6 +1020,10 @@ void ClipboardBrowser::mousePressEvent(QMouseEvent *event)
     }
 
     QListView::mousePressEvent(event);
+
+    // Let the main window handle clicks on the empty area (moves frameless window).
+    if ( !indexAt(event->pos()).isValid() )
+        event->ignore();
 }
 
 void ClipboardBrowser::mouseReleaseEvent(QMouseEvent *event)
@@ -1077,7 +1086,7 @@ void ClipboardBrowser::mouseMoveEvent(QMouseEvent *event)
         for (const auto &index : indexesToRemove)
             selected.append(index);
 
-        QWidget *target = qobject_cast<QWidget*>(drag->target());
+        auto *target = qobject_cast<QWidget*>(drag->target());
 
         QPointer<QObject> self(this);
 

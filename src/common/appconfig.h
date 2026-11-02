@@ -219,6 +219,10 @@ struct hide_tabs : Config<bool> {
     static QString name() { return QStringLiteral("hide_tabs"); }
 };
 
+struct hide_menu_bar : Config<bool> {
+    static QString name() { return QStringLiteral("hide_menu_bar"); }
+};
+
 struct hide_toolbar : Config<bool> {
     static QString name() { return QStringLiteral("hide_toolbar"); }
 };
@@ -570,6 +574,17 @@ struct terminate_action_timeout_ms : Config<int> {
         return "Time to wait for action to be terminated before sending kill signal";
     }
     static Value value(Value v) { return qMax(0, v); }
+};
+
+struct clipboard_mime_size_limit : Config<QString> {
+    static QString name() { return QStringLiteral("clipboard_mime_size_limit"); }
+    static const char *description() {
+        return "Maximum clipboard data size per MIME type as semicolon-delimited"
+               " pattern:bytes entries (e.g. \"text/html.*:0;.*:100M\")."
+               " Use -1 for no limit (e.g. \".*:-1\")."
+               " Default: .*:100M."
+               " The COPYQ_CLIPBOARD_MIME_SIZE_LIMIT environment variable overrides this.";
+    }
 };
 
 } // namespace Config

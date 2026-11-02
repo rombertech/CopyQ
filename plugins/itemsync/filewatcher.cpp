@@ -16,6 +16,7 @@
 #include <QMimeData>
 #include <QRegularExpression>
 #include <QUrl>
+#include <QThread>
 
 #include <array>
 #include <vector>
@@ -37,6 +38,46 @@ namespace {
 Q_DECLARE_LOGGING_CATEGORY(fileWatcher)
 Q_LOGGING_CATEGORY(fileWatcher, "copyq.plugin.itemsync.filewatcher")
 
+// Cloud sync agents (OneDrive, Dropbox) and SMB/CIFS mounts may briefly lock
+// files, causing transient open/rename/copy/remove failures. A short retry
+// loop avoids data loss in those environments.
+//
+// Qt's QFileDevice::FileError codes are operation-typed (OpenError, RenameError,
+// etc.), not cause-typed — a sharing violation and a genuine permission denial
+// both produce the same enum value. Since we cannot distinguish transient from
+// permanent failures, we unconditionally retry: the count is small and the
+// delay is short. Note that retries block the calling thread (UI); a single
+// call site sleeps at most maxFileOpRetries * fileOpRetryDelayMs, but a
+// compound operation (e.g. rename with copy-fallback across N format files)
+// may invoke multiple call sites sequentially.
+constexpr int maxFileOpRetries = 2;
+constexpr int fileOpRetryDelayMs = 20;
+
+// Run a file operation, optionally retrying on transient failure.
+// |op| is a callable that returns true on success.
+// |context| describes the operation for log messages (e.g. "open for reading").
+// |file| is the QFile being operated on (for path and errorString() in log messages).
+// |retryCount| is the number of retries after the initial attempt; the operation
+// runs at most 1 + retryCount times. Pass 0 for read-only opens where the file
+// watcher will re-process failures later (avoids blocking the GUI thread).
+template <typename Op>
+bool retryFileOp(Op &&op, const char *context, const QFile &file, int retryCount = maxFileOpRetries)
+{
+    const int attempts = 1 + retryCount;
+    for (int attempt = 0; attempt < attempts; ++attempt) {
+        if (op())
+            return true;
+        if (attempt + 1 < attempts) {
+            qCDebug(fileWatcher)
+                << "Retrying" << context << file.fileName()
+                << "(attempt" << (attempt + 2) << "of" << attempts << ")"
+                << file.errorString();
+            QThread::msleep(fileOpRetryDelayMs);
+        }
+    }
+    return false;
+}
+
 class FileWatcherLock final {
 public:
     explicit FileWatcherLock(FileWatcher *fileWatcher)
@@ -47,6 +88,11 @@ public:
         if (m_locked)
             m_fileWatcher->unlock();
     }
+    FileWatcherLock(const FileWatcherLock &) = delete;
+    FileWatcherLock &operator=(const FileWatcherLock &) = delete;
+    FileWatcherLock(FileWatcherLock &&) = delete;
+    FileWatcherLock &operator=(FileWatcherLock &&) = delete;
+
 
     bool lock() {
         m_locked = m_locked || m_fileWatcher->lock();
@@ -56,6 +102,18 @@ private:
     FileWatcher *m_fileWatcher;
     bool m_locked = false;
 };
+
+void logFailedToOpenForReading(const QString &path, const QString &errorString)
+{
+    if ( QFileInfo::exists(path) ) {
+        qCWarning(fileWatcher)
+            << "Failed to open file for reading" << path
+            << "-" << errorString;
+    } else {
+        qCDebug(fileWatcher)
+            << "Sync file no longer exists" << path;
+    }
+}
 
 } // namespace
 
@@ -89,8 +147,11 @@ public:
     QByteArray readAll() const
     {
         QFile f(m_path);
-        if ( !f.open(QIODevice::ReadOnly) )
+        const bool opened = retryFileOp([&f]{ return f.open(QIODevice::ReadOnly); }, "open for reading", f, /*retryCount=*/0);
+        if (!opened) {
+            logFailedToOpenForReading(m_path, f.errorString());
             return QByteArray();
+        }
 
         if ( m_format.isEmpty() )
             return f.readAll();
@@ -291,7 +352,8 @@ bool saveItemFile(const QString &filePath, const QByteArray &bytes,
 {
     if ( !existingFiles->removeOne(filePath) || hashChanged ) {
         QFile f(filePath);
-        if ( !f.open(QIODevice::WriteOnly) || f.write(bytes) == -1 ) {
+        const bool opened = retryFileOp([&f]{ return f.open(QIODevice::WriteOnly); }, "open for writing", f);
+        if ( !opened || f.write(bytes) == -1 ) {
             qCCritical(fileWatcher)
                 << "Failed to save item file:" << f.errorString();
             return false;
@@ -421,28 +483,96 @@ bool isUniqueBaseName(const QString &baseName, const QDir &dir,
     return parentDir.isEmpty();
 }
 
-void moveFormatFiles(const QString &oldPath, const QString &newPath,
+bool moveFormatFiles(const QString &oldPath, const QString &newPath,
                      const QVariantMap &mimeToExtension)
 {
+    // Track what happened to each file so we can clean up on failure
+    // and delete copied originals on success.
+    QStringList renamedExts;
+    QStringList copiedExts;
+
     for (const auto &extValue : mimeToExtension) {
         const QString ext = extValue.toString();
-        QFile::rename(oldPath + ext, newPath + ext);
+        const QString src = oldPath + ext;
+        const QString dst = newPath + ext;
+
+        QFile file(src);
+        if ( retryFileOp([&file, &dst]{ return file.rename(dst); }, "rename", file) ) {
+            renamedExts.append(ext);
+            continue;
+        }
+
+        qCWarning(fileWatcher)
+            << "Failed to rename" << src << "to" << dst
+            << "-" << file.errorString();
+
+        // Rename failed; fall back to copy (needs only read access).
+        if ( !retryFileOp([&file, &dst]{ return file.copy(dst); }, "copy", file) ) {
+            qCWarning(fileWatcher)
+                << "Failed to copy" << src << "to" << dst
+                << "-" << file.errorString();
+
+            // Clean up: reverse renames and delete copies.
+            for (const QString &rbExt : renamedExts)
+                QFile::rename(newPath + rbExt, oldPath + rbExt);
+            for (const QString &cpExt : copiedExts)
+                QFile::remove(newPath + cpExt);
+            return false;
+        }
+
+        copiedExts.append(ext);
     }
+
+    // Remove originals that were copied. Failures are non-fatal
+    // since the item is already complete under the new name.
+    for (const QString &ext : copiedExts) {
+        QFile original(oldPath + ext);
+        if ( !retryFileOp([&original]{ return original.remove() || !original.exists(); }, "remove", original)
+             && original.exists() )
+        {
+            qCWarning(fileWatcher)
+                << "Failed to remove original file" << original.fileName();
+        }
+    }
+
+    return true;
 }
 
-void copyFormatFiles(const QString &oldPath, const QString &newPath,
+bool copyFormatFiles(const QString &oldPath, const QString &newPath,
                      const QVariantMap &mimeToExtension)
 {
+    QStringList copiedExts;
+
     for (const auto &extValue : mimeToExtension) {
         const QString ext = extValue.toString();
-        QFile::copy(oldPath + ext, newPath + ext);
+        QFile srcFile(oldPath + ext);
+        const QString dst = newPath + ext;
+        if ( !retryFileOp([&srcFile, &dst]{ return srcFile.copy(dst); }, "copy", srcFile) ) {
+            qCWarning(fileWatcher)
+                << "Failed to copy" << srcFile.fileName() << "to" << dst;
+
+            // Roll back successfully copied files.
+            for (const QString &cpExt : copiedExts)
+                QFile::remove(newPath + cpExt);
+            return false;
+        }
+        copiedExts.append(ext);
     }
+
+    return true;
 }
 
 void removeFormatFiles(const QString &path, const QVariantMap &mimeToExtension)
 {
-    for (const auto &extValue : mimeToExtension)
-        QFile::remove(path + extValue.toString());
+    for (const auto &extValue : mimeToExtension) {
+        QFile f(path + extValue.toString());
+        if ( !retryFileOp([&f]{ return f.remove() || !f.exists(); }, "remove", f)
+             && f.exists() )
+        {
+            qCWarning(fileWatcher)
+                << "Failed to remove file" << f.fileName();
+        }
+    }
 }
 
 int variantTypeId(const QVariant &value)
@@ -535,6 +665,31 @@ QString findLastOwnBaseName(QAbstractItemModel *model, int fromRow) {
     return {};
 }
 
+struct FileRemovalEntry {
+    QString baseName;
+    QVariantMap mimeToExtension;
+};
+
+void removeFiles(
+    const QString &tabPath,
+    const QVector<FileRemovalEntry> &entries)
+{
+    for (const auto &entry : entries) {
+        const QString filePath = tabPath + '/' + entry.baseName;
+        if (entry.mimeToExtension.isEmpty()) {
+            QFile f(filePath);
+            if (!retryFileOp([&f]{ return f.remove() || !f.exists(); }, "remove", f)
+                && f.exists())
+            {
+                qCWarning(fileWatcher)
+                    << "Failed to remove file" << f.fileName();
+            }
+        } else {
+            removeFormatFiles(filePath, entry.mimeToExtension);
+        }
+    }
+}
+
 } // namespace
 
 QString FileWatcher::getBaseName(const QModelIndex &index)
@@ -552,34 +707,28 @@ bool FileWatcher::isOwnBaseName(const QString &baseName)
     return baseName.startsWith(QLatin1String("copyq_"));
 }
 
-void FileWatcher::removeFilesForRemovedIndex(const QString &tabPath, const QModelIndex &index)
+void FileWatcher::removeFilesForRemovedIndexes(
+    const QString &tabPath, const QList<QPersistentModelIndex> &indexes,
+    bool ownOnly)
 {
-    const QAbstractItemModel *model = index.model();
-    if (!model)
-        return;
+    QVector<FileRemovalEntry> entries;
 
-    const QString baseName = FileWatcher::getBaseName(index);
-    if ( baseName.isEmpty() )
-        return;
+    for (const auto &index : indexes) {
+        if (!index.isValid())
+            continue;
 
-    // Check if item is still present in list (drag'n'drop).
-    bool remove = true;
-    for (int i = 0; i < model->rowCount(); ++i) {
-        const QModelIndex index2 = model->index(i, 0);
-        if ( index2 != index && baseName == FileWatcher::getBaseName(index2) ) {
-            remove = false;
-            break;
-        }
+        const QString baseName = FileWatcher::getBaseName(index);
+        if (baseName.isEmpty())
+            continue;
+        if (ownOnly && !isOwnBaseName(baseName))
+            continue;
+
+        const QVariantMap itemData = index.data(contentType::data).toMap();
+        entries.append({baseName, itemData.value(mimeExtensionMap).toMap()});
     }
-    if (!remove)
-        return;
 
-    const QVariantMap itemData = index.data(contentType::data).toMap();
-    const QVariantMap mimeToExtension = itemData.value(mimeExtensionMap).toMap();
-    if ( mimeToExtension.isEmpty() )
-        QFile::remove(tabPath + '/' + baseName);
-    else
-        removeFormatFiles(tabPath + '/' + baseName, mimeToExtension);
+    if (!entries.isEmpty())
+        removeFiles(tabPath, entries);
 }
 
 Hash FileWatcher::calculateHash(const QByteArray &bytes)
@@ -787,13 +936,22 @@ void FileWatcher::updateItems()
         QVariantMap dataMap;
         QVariantMap mimeToExtension;
 
-        if ( it != m_fileList.cend() ) {
+        const bool foundInFileList = it != m_fileList.cend();
+        if ( foundInFileList ) {
             updateDataAndWatchFile(m_dir, *it, &dataMap, &mimeToExtension);
             m_fileList.erase(it);
         }
 
         if ( mimeToExtension.isEmpty() ) {
-            m_model->removeRow(index.row());
+            if ( foundInFileList ) {
+                // Files exist on disk but couldn't be read;
+                // skip this item rather than removing it.
+                qCInfo(fileWatcher)
+                    << "Skipping update for" << baseName
+                    << "- files exist but could not be read";
+            } else {
+                m_model->removeRow(index.row());
+            }
         } else {
             dataMap.insert(mimeBaseName, baseName);
             dataMap.insert(mimeExtensionMap, mimeToExtension);
@@ -859,14 +1017,7 @@ void FileWatcher::onRowsRemoved(const QModelIndex &, int first, int last)
 
     const bool wasFull = m_maxItems >= m_model->rowCount();
 
-    for ( const auto &index : indexList(first, last) ) {
-        if ( !index.isValid() )
-            continue;
-
-        const QString baseName = oldBaseName(index);
-        if ( isOwnBaseName(baseName) )
-            removeFilesForRemovedIndex(path(), index);
-    }
+    removeFilesForRemovedIndexes(path(), indexList(first, last), /*ownOnly=*/true);
 
     // If the tab is no longer full, try to add new files.
     if (wasFull)
@@ -1129,10 +1280,20 @@ bool FileWatcher::renameMoveCopy(
             QString oldBasePath;
             if ( !syncPath.isEmpty() ) {
                 oldBasePath = syncPath + '/' + oldBaseName;
-                copyFormatFiles(oldBasePath, newBasePath, mimeToExtension);
+                if ( !copyFormatFiles(oldBasePath, newBasePath, mimeToExtension) ) {
+                    qCWarning(fileWatcher)
+                        << "Skipping cross-tab copy of" << oldBaseName
+                        << "to" << baseName;
+                    continue;
+                }
             } else if ( !olderBaseName.isEmpty() ) {
                 oldBasePath = m_dir.absoluteFilePath(olderBaseName);
-                moveFormatFiles(oldBasePath, newBasePath, mimeToExtension);
+                if ( !moveFormatFiles(oldBasePath, newBasePath, mimeToExtension) ) {
+                    qCWarning(fileWatcher)
+                        << "Skipping rename of" << olderBaseName
+                        << "to" << baseName;
+                    continue;
+                }
             }
 
             rebaseSyncDataFilePaths(&itemData, mimeToExtension, oldBasePath, newBasePath);
@@ -1163,8 +1324,10 @@ void FileWatcher::updateDataAndWatchFile(const QDir &dir, const BaseNameExtensio
 
         const QString path = dir.absoluteFilePath(fileName);
         QFile f(path);
-        if ( !f.open(QIODevice::ReadOnly) )
+        if ( !retryFileOp([&f]{ return f.open(QIODevice::ReadOnly); }, "open for reading", f, /*retryCount=*/0) ) {
+            logFailedToOpenForReading(path, f.errorString());
             continue;
+        }
 
         if ( ext.extension == dataFileSuffix ) {
             QDataStream stream(&f);
@@ -1176,7 +1339,7 @@ void FileWatcher::updateDataAndWatchFile(const QDir &dir, const BaseNameExtensio
                         ? value.toByteArray().size()
                         : value.value<SyncDataFile>().size();
                     if (m_itemDataThreshold >= 0 && size > m_itemDataThreshold) {
-                        const QVariant syncDataFile = QVariant::fromValue(SyncDataFile(path, it.key()));
+                        const auto syncDataFile = QVariant::fromValue(SyncDataFile(path, it.key()));
                         dataMap->insert(it.key(), syncDataFile);
                     } else {
                         dataMap->insert(it.key(), value);
@@ -1190,7 +1353,7 @@ void FileWatcher::updateDataAndWatchFile(const QDir &dir, const BaseNameExtensio
         {
             mimeToExtension->insert(mimeNoFormat + ext.extension, ext.extension);
         } else if ( m_itemDataThreshold >= 0 && f.size() > m_itemDataThreshold ) {
-            const QVariant value = QVariant::fromValue(SyncDataFile(path));
+            const auto value = QVariant::fromValue(SyncDataFile(path));
             dataMap->insert(ext.format, value);
             mimeToExtension->insert(ext.format, ext.extension);
         } else {

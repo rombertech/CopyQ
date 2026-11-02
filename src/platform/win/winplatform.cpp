@@ -15,6 +15,7 @@
 #include <QFileInfo>
 #include <QKeyEvent>
 #include <QMetaObject>
+#include <QMessageBox>
 #include <QSettings>
 #include <QStringList>
 #include <QWidget>
@@ -25,6 +26,7 @@
 #include <objidl.h>
 #include <shlguid.h>
 
+#include <dwmapi.h>
 #include <psapi.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -183,6 +185,7 @@ void initApplication(QCoreApplication *app)
         if ( qEnvironmentVariableIsEmpty("COPYQ_LOG_DIR") )
             qputenv("COPYQ_LOG_DIR", folder.toLocal8Bit() + "/logs");
         app->setProperty("CopyQ_item_data_path", configFolder + QLatin1String("/items"));
+        app->setProperty("CopyQ_state_path", configFolder);
     }
 }
 
@@ -233,14 +236,60 @@ HWND getLastVisibleActivePopUpOfWindow(HWND window)
     return nullptr;
 }
 
+bool isWindowCloaked(HWND window)
+{
+    // Resolved at runtime to avoid linking dwmapi.
+    using DwmGetWindowAttributePtr = HRESULT (WINAPI *)(HWND, DWORD, PVOID, DWORD);
+    static const auto dwmGetWindowAttribute = []() -> DwmGetWindowAttributePtr {
+        const HMODULE dwmapi = LoadLibraryW(L"dwmapi.dll");
+        return dwmapi
+            ? reinterpret_cast<DwmGetWindowAttributePtr>(
+                  GetProcAddress(dwmapi, "DwmGetWindowAttribute") )
+            : nullptr;
+    }();
+
+    if (!dwmGetWindowAttribute)
+        return false;
+
+    DWORD cloaked = 0;
+    const HRESULT result =
+        dwmGetWindowAttribute(window, DWMWA_CLOAKED, &cloaked, sizeof(cloaked));
+    return SUCCEEDED(result) && cloaked != 0;
+}
+
+bool hasWindowTitle(HWND window)
+{
+    WCHAR buf[2];
+    return GetWindowTextW(window, buf, 2) > 0;
+}
+
 bool isAltTabWindow(HWND window)
 {
     if (!window || window == GetShellWindow())
         return false;
 
+    if ( !IsWindowVisible(window) )
+        return false;
+
+    const LONG exStyle = GetWindowLong(window, GWL_EXSTYLE);
+    if (exStyle & WS_EX_TOOLWINDOW)
+        return false;
+
+    // Such a window never takes the keyboard focus, so pasting to it misses.
+    if (exStyle & WS_EX_NOACTIVATE)
+        return false;
+
     HWND root = GetAncestor(window, GA_ROOTOWNER);
 
     if (getLastVisibleActivePopUpOfWindow(root) != window)
+        return false;
+
+    // Suspended store applications and shell surfaces stay in the window list
+    // and report themselves as visible, but cannot be switched to.
+    if ( isWindowCloaked(window) )
+        return false;
+
+    if ( !hasWindowTitle(window) )
         return false;
 
     const QString cls = windowClass(window);
@@ -283,15 +332,53 @@ PlatformWindowPtr WinPlatform::getWindow(WId winId)
 PlatformWindowPtr WinPlatform::getCurrentWindow()
 {
     currentWindow = GetForegroundWindow();
-    if (!isAltTabWindow(currentWindow))
+    if ( !isAltTabWindow(currentWindow) ) {
+        // The callback only assigns a window if it finds a suitable one, so
+        // reset first - returning the rejected window would be worse than
+        // returning nothing, and the caller keeps the last known window.
+        currentWindow = nullptr;
         EnumWindows(getCurrentWindowProc, 0);
+        COPYQ_LOG( QStringLiteral("Current window: %1")
+                   .arg( currentWindow
+                         ? windowClass(currentWindow)
+                         : QStringLiteral("none") ) );
+    }
     return PlatformWindowPtr( currentWindow ? new WinPlatformWindow(currentWindow) : nullptr );
 }
 
 bool WinPlatform::setPreventScreenCapture(WId winId, bool prevent)
 {
     HWND window = reinterpret_cast<HWND>(winId);
-    return window && SetWindowDisplayAffinity(
+    if (!window)
+        return false;
+
+    // Remote desktop clients are screen capture systems — applying
+    // WDA_EXCLUDEFROMCAPTURE makes windows invisible to the remote viewer.
+    if (prevent && GetSystemMetrics(SM_REMOTESESSION)) {
+        static bool logged = false;
+        if (!logged) {
+            logged = true;
+            log("Skipping screen capture prevention in remote desktop session", LogWarning);
+
+            const QLatin1String optionKey("Options/screen_capture_warning_acknowledged");
+            Settings settings;
+            if (!settings.value(optionKey, false).toBool()) {
+                QMessageBox::warning(
+                    nullptr,
+                    QObject::tr("Screen Capture Prevention Unavailable"),
+                    QObject::tr(
+                        "The option to hide from screenshots is enabled but cannot"
+                        " take effect in a remote desktop session. Window content"
+                        " may be visible to screen capture."));
+                settings.setValue(optionKey, true);
+            }
+        }
+
+        SetWindowDisplayAffinity(window, WDA_NONE);
+        return false;
+    }
+
+    return SetWindowDisplayAffinity(
         window, prevent ? WDA_EXCLUDEFROMCAPTURE : WDA_NONE);
 }
 

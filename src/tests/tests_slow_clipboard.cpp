@@ -46,7 +46,7 @@ private:
 
 } // namespace
 
-void Tests::slowClipboard()
+void CoreTests::slowClipboard()
 {
     SKIP_ON_ENV("COPYQ_TESTS_SKIP_SLOW_CLIPBOARD");
 
@@ -75,11 +75,12 @@ void Tests::slowClipboard()
     RUN("read('c/c', 0)", "2");
     RUN("read('?', 0)", "a/a\nb/b\nc/c\n");
 
+    const auto expectedLog = R"(^.*<cmd/monitorClipboard-\d+>: Aborting clipboard cloning: Data access took too long$)";
+    const auto timeoutsBefore = count(splitLines(readLogFile(maxReadLogSize)), expectedLog);
     QMimeData *data = new SlowMimeData("X", 1500);
     clipboard->setRawData(ClipboardMode::Clipboard, data);
     waitFor(2000);
-    const auto expectedLog = R"(^.*<cmd/monitorClipboard-\d+>: Aborting clipboard cloning: Data access took too long$)";
-    QTRY_COMPARE( count(splitLines(readLogFile(maxReadLogSize)), expectedLog), 1 );
+    QTRY_VERIFY( count(splitLines(readLogFile(maxReadLogSize)), expectedLog) > timeoutsBefore );
 
     TEST( m_test->setClipboard("B", "a/a") );
     WAIT_ON_OUTPUT("clipboard" << "a/a", "B");

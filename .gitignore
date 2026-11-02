@@ -14,6 +14,7 @@ cmake_install.cmake
 *.suo
 *.*sdf
 *.vc?proj*
+.vs
 
 # Generated Makefiles
 /plugins/Makefile
@@ -63,3 +64,5 @@ CMakeLists.txt.user*
 # Files for utils/launchpad/build.sh
 .gitconfig
 launchpad.key
+compile_commands.json
+uv.lock
